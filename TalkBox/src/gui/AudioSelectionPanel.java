@@ -235,12 +235,14 @@ public class AudioSelectionPanel extends JPanel {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 
-		/* First Row */
+		/* First Row 
+		 * [audioSelection] [vv drop down (audiolist) vv]
+		 * */
 		gc.gridy = 0;
 
-		gc.weightx = 1;
-		gc.weighty = 0.2;
-
+		gc.weightx = 0.1;
+		gc.weighty = 0.1;
+		
 		gc.gridx = 0;
 
 		gc.fill = GridBagConstraints.NONE;
@@ -253,51 +255,36 @@ public class AudioSelectionPanel extends JPanel {
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(audioList, gc);
 
-		/* Next Row */
+
+		
+		
+		/* Next Row 
+		 * 
+		 * [play]		[remove]
+		 * 
+		 */
 		gc.gridy++;
-
-		gc.weightx = 1;
-		gc.weighty = 0.2;
-
+		gc.weightx = 0.1;
+		gc.weighty = 0.3;
+		
 		gc.gridx = 0;
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		add(playButton, gc);
-
-		/* Next Row */
-		gc.weightx = 1;
-		gc.weighty = 0.2;
-
-		gc.gridy++;
-		gc.gridx = 0;
-		gc.insets = new Insets(0, 0, 0, 5);
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		add(add_set, gc);
-
-		gc.gridx = 1;
-		gc.insets = new Insets(0, 0, 0, 0);
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		add(setButton, gc);
-
-		/* Next Row */
-		gc.weightx = 1;
-		gc.weighty = 0.5;
-
-		gc.gridy++;
-		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		gc.anchor = GridBagConstraints.FIRST_LINE_END;
 		add(removeset, gc);
 		
-		
-		gc.gridx = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		add(undo, gc);
+	
 
-		/* Next Row */
+		/* Next Row 
+		 * 
+		 * Create Custom Audio Set: [ ] 
+		 * 
+		 * */
 		gc.gridy++;
-
-		gc.weightx = 1;
-		gc.weighty = 0.5;
-
+		gc.weightx = 0.2;
+		gc.weighty = 0.2;
+		
+		//
 		gc.gridx = 0;
 		gc.anchor = GridBagConstraints.FIRST_LINE_END;
 		gc.insets = new Insets(0, 0, 0, 5);
@@ -308,10 +295,43 @@ public class AudioSelectionPanel extends JPanel {
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(checkBox, gc);
 
-		gc.gridy++;
+	
+		/* Next Row 
+		 * 
+		 * 	[<< clear] 	[select >>]
+		 * 
+		 * */
+		
+		gc.gridy ++;
+		gc.weightx = 0.2;
+		gc.weighty = 0.2;
+		
+		gc.gridx = 0;
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		add(undo, gc);
+		
+		gc.gridx = 1;
+		gc.insets = new Insets(0, 0, 0, 0);
+		gc.anchor = GridBagConstraints.FIRST_LINE_END;
+		add(setButton, gc);
 
+
+		/* Next Row
+		 * 
+		 *  		[Add Set]
+		 *  
+		 *  */
+		gc.gridy++;
 		gc.weightx = 1;
-		gc.weighty = 0.5;
+		gc.weighty = 1;
+		
+		gc.insets = new Insets(0, 0, 0, 5);
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		add(add_set, gc);
+		
+		
+
+		
 
 	}
 
