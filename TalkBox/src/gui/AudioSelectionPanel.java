@@ -236,7 +236,9 @@ public class AudioSelectionPanel extends JPanel {
 		GridBagConstraints gc = new GridBagConstraints();
 
 		/* First Row 
+		 * 
 		 * [audioSelection] [vv drop down (audiolist) vv]
+		 * 
 		 * */
 		gc.gridy = 0;
 
