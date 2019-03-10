@@ -1,7 +1,10 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,9 +12,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -48,11 +53,28 @@ public class AudioSelectionPanel extends JPanel {
 		comboModel = new DefaultComboBoxModel();
 		audioSelection = new JComboBox();
 		audioList = new JList();
-		playButton = new JButton("Play");
+			
+		// pause-play 
+		ImageIcon playIcon = new ImageIcon("src//icons//play-pause.png");
+		playIcon.setImage(Controller.scaleIcon(playIcon, 8));
+		playButton = new JButton(playIcon);
+		playButton.setPreferredSize(Controller.getIconDimensions(playIcon));
+		
+		// select button
 		setButton = new JButton("Select >>");
-		add_set = new JButton("Add Set");
-		removeset = new JButton("Remove");
-		undo = new JButton("<< Clear");
+		
+		// add
+		add_set = new JButton("Compile into New Set");
+		
+		//remove
+		ImageIcon removeIcon = new ImageIcon("src//icons//remove.png");
+		removeIcon.setImage(Controller.scaleIcon(removeIcon, 8));
+		removeset = new JButton(removeIcon);
+		removeset.setPreferredSize(Controller.getIconDimensions(removeIcon));
+		
+		// clear
+		undo = new JButton("Clear Selections");
+		
 		checkBox = new JCheckBox();
 		setButton.setEnabled(false);
 		add_set.setEnabled(false);

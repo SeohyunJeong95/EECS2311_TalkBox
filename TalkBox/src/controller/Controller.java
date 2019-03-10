@@ -1,6 +1,10 @@
 package controller;
 
+import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.io.File;
 import java.io.FileInputStream;
@@ -113,5 +117,19 @@ public class Controller {
         this.talkbox= (TalkBox) objectInputStream.readObject();
         objectInputStream.close();
      
+	}
+	
+	public static Image scaleIcon(ImageIcon icon, int resize) {
+		Image image = icon.getImage();
+		image = image.getScaledInstance(
+				image.getWidth(null) / resize, image.getHeight(null) / resize, 
+				Image.SCALE_SMOOTH);
+		return image;
+		
+	}
+	
+	public static Dimension getIconDimensions(ImageIcon icon) {
+		Dimension result = new Dimension(icon.getIconWidth(), icon.getIconHeight());
+		return result;
 	}
 }
