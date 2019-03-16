@@ -154,8 +154,11 @@ public class MainFrame extends JFrame {
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				dispose();
-				System.gc();
+				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
+				if (action == JOptionPane.OK_OPTION) {
+					dispose();
+					System.gc();	
+				}
 			}
 			
 		});
@@ -223,11 +226,9 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
 				if (action == JOptionPane.OK_OPTION) {
-					WindowListener[] listeners = getWindowListeners();
-					
-					for (WindowListener listener : listeners) {
-						listener.windowClosing(new WindowEvent(MainFrame.this, 0));
-					}
+				
+					System.exit(0);
+						
 				}
 				
 			}

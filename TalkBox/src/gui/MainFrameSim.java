@@ -53,10 +53,14 @@ public class MainFrameSim extends JFrame {
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				MainFrameSim.this.mf.setVisible(true);
-				MainFrameSim.this.mf.getToolBarS().turnOnStart();
-				dispose();
-				System.gc();
+				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
+				if (action == JOptionPane.OK_OPTION) {
+					MainFrameSim.this.mf.setVisible(true);
+					MainFrameSim.this.mf.getToolBarS().turnOnStart();
+					dispose();
+					System.gc();	
+				}
+				
 			}
 			
 		});
@@ -179,12 +183,11 @@ public class MainFrameSim extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
 				if (action == JOptionPane.OK_OPTION) {
-					WindowListener[] listeners = getWindowListeners();
-					for (WindowListener listener : listeners) {
-						listener.windowClosing(new WindowEvent(MainFrameSim.this, 0));
-					}
+					MainFrameSim.this.mf.setVisible(true);
+					MainFrameSim.this.mf.getToolBarS().turnOnStart();
+					dispose();
+					System.gc();	
 				}
-				
 			}
 		});
 		
