@@ -1,20 +1,18 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import controller.Controller;
 import utils.Stereo;
@@ -45,7 +43,7 @@ public class MainFrame extends JFrame {
 		controller = audioSelectionPanel.controller;
 		audioPlayer = new Stereo();
 		setToolBarS(new ToolBarS());
-		mfs = new MainFrameSim(controller);
+		mfs = new MainFrameSim(controller, this);
 		String s = System.getProperty("user.dir"); 
 		jfilechooser = new JFileChooser(s);
 		jfilechooser.addChoosableFileFilter(new ImportExtensionFilter());
@@ -153,6 +151,14 @@ public class MainFrame extends JFrame {
 			
 		});
 		
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				dispose();
+				System.gc();
+			}
+			
+		});
 		//Add
 		getContentPane().add(audioSelectionPanel, BorderLayout.WEST);
 		getContentPane().add(toolBar, BorderLayout.NORTH);
@@ -166,7 +172,7 @@ public class MainFrame extends JFrame {
 
 	public void showIt() {
 		setSize(1000,1000);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}
 	
@@ -217,7 +223,11 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
 				if (action == JOptionPane.OK_OPTION) {
-					System.exit(0);
+					WindowListener[] listeners = getWindowListeners();
+					
+					for (WindowListener listener : listeners) {
+						listener.windowClosing(new WindowEvent(MainFrame.this, 0));
+					}
 				}
 				
 			}

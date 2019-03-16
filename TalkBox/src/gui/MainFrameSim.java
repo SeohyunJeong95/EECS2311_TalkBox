@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,16 +37,29 @@ public class MainFrameSim extends JFrame {
 	private boolean soundPlayed = false;
 	private Controller controller;
 	private JLabel label = new JLabel();
+	private MainFrame mf;
 
-	public MainFrameSim(Controller controller) {
+	public MainFrameSim(Controller controller, MainFrame mf) {
 		super("TalkBox Simulator");
 		setVisible(false);
 		setLayout(new BorderLayout());
 		setJMenuBar(createMenuBar());
 		this.controller= controller;
+		this.mf = mf;
 		
 		
 		audioPlayer = new Stereo();
+		
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				MainFrameSim.this.mf.setVisible(true);
+				MainFrameSim.this.mf.getToolBarS().turnOnStart();
+				dispose();
+				System.gc();
+			}
+			
+		});
 	}
 	
 	
@@ -53,7 +69,7 @@ public class MainFrameSim extends JFrame {
 	
 	public void showIt() {
 		setSize(500,600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}
 	
@@ -163,7 +179,10 @@ public class MainFrameSim extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
 				if (action == JOptionPane.OK_OPTION) {
-					System.exit(0);
+					WindowListener[] listeners = getWindowListeners();
+					for (WindowListener listener : listeners) {
+						listener.windowClosing(new WindowEvent(MainFrameSim.this, 0));
+					}
 				}
 				
 			}
