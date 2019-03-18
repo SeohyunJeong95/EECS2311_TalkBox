@@ -140,7 +140,7 @@ public class AudioSelectionPanel extends JPanel {
 				addAudioSet();
 				controller.addAudioSet(new LinkedList<>(audioset));
 				//use controller to generate new preview
-				controller.generatePreview(audioset);
+				//controller.generatePreview(audioset);
 				audioset.clear();
 				checkBox.setSelected(false);
 				setButton.setEnabled(false);
@@ -281,6 +281,7 @@ public class AudioSelectionPanel extends JPanel {
 
 
 		
+		/*여기 여기 */
 		
 		/* Next Row 
 		 * 
@@ -358,6 +359,8 @@ public class AudioSelectionPanel extends JPanel {
 		
 
 	}
+	
+	/// 여기다가 만들면돼 이거 써서 //
 
 	public void setJList(String[] audioSet) {
 		DefaultListModel listModel = new DefaultListModel();

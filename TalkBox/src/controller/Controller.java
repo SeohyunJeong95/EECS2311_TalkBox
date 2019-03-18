@@ -92,10 +92,10 @@ public class Controller {
 		talkbox.removeAudio(idx, fileName);
 	}
 	
-	public void generatePreview(ArrayList<String> custom) {
-		view.revalidate();
-	}
-	
+//	public void generatePreview(ArrayList<String> custom) {
+//		view.revalidate();
+//	}
+//	
 	
 	public void save(File file) throws Exception {
 		FileOutputStream fileOutputStream = new FileOutputStream(file);
