@@ -45,6 +45,7 @@ public class Demo extends JFrame {
 	 * Create the frame.
 	 */
 	public Demo() {
+		//
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
