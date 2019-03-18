@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -48,6 +49,9 @@ public class RecordDialog extends JDialog {
 		recordButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (!validateFilename(audioFileName.getText())) {
+					return;
+				}
 				RecordDialog.this.fileName = audioFileName.getText();
 				JToggleButton button = (JToggleButton) e.getSource();
 				if (button == recordButton) {
@@ -111,6 +115,25 @@ public class RecordDialog extends JDialog {
 		setSize(400, 300);
 		setLocationRelativeTo(parent);
 		
+	}
+	
+	public boolean validateFilename(String newFile) {
+		
+		if (newFile.isEmpty()) {
+			System.out.println("filename is empty!");
+			return false;
+		}
+		else {
+			boolean validated = true;
+			File actual = new File("src\\audio");
+			for (File f : actual.listFiles()) {
+				if (f.getName().equals(newFile + ".wav")) {
+					validated = false;
+					System.out.println("filename already exists");
+				}
+			}
+			return validated;
+		}
 	}
 }
 
