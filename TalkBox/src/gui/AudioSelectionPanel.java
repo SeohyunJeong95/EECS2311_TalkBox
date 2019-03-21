@@ -83,10 +83,6 @@ public class AudioSelectionPanel extends JPanel {
 		controller = new Controller();
 		audioset = new ArrayList<String>();
 
-		
-
-	
-
 		// Actions
 		audioSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -106,6 +102,7 @@ public class AudioSelectionPanel extends JPanel {
 				if (playListener != null && idx > 0) {
 					playListener.setFileName(idx, selection);
 				}
+				controller.log("play button pressed to preview (" + selection + ")");
 			}
 
 		});
@@ -116,8 +113,10 @@ public class AudioSelectionPanel extends JPanel {
 				if (isChecked) {
 					setButton.setEnabled(isChecked);
 					add_set.setEnabled(isChecked);
+					controller.log("check box [create custom audio set] enabled");
 				} else {
 					undo.setEnabled(false);
+					controller.log("check box disabled");
 				}
 				
 			}
@@ -131,6 +130,7 @@ public class AudioSelectionPanel extends JPanel {
 					setListener.setup(idx, selection);
 					audioset.add((String) audioList.getSelectedValue());
 				}
+				controller.log("setButton [Select >>] pressed, (" + selection + ") added to the audioset");
 			}
 
 		});
@@ -146,6 +146,7 @@ public class AudioSelectionPanel extends JPanel {
 				setButton.setEnabled(false);
 				add_set.setEnabled(false);
 				undo.setEnabled(false);
+				controller.log("add_set [Compile into new audio set] pressed");
 				
 				if (addListener != null) {
 					addListener.clearSetup(true);
@@ -160,11 +161,9 @@ public class AudioSelectionPanel extends JPanel {
 				String file = (String) audioList.getSelectedValue();
 				if (removeListener != null && n >= 0) {
 					removeListener.setRemoveInfo(n, file);
+					controller.log("audio file (" + file + ") removed from audio set");
 				}
-				
-
 			}
-
 		});
 		
 		undo.addActionListener(new ActionListener() {
@@ -278,11 +277,8 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(audioList, gc);
+	
 
-
-		
-		/*여기 여기 */
-		
 		/* Next Row 
 		 * 
 		 * [play]		[remove]

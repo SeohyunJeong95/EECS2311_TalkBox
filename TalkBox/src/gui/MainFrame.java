@@ -156,6 +156,7 @@ public class MainFrame extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
 				if (action == JOptionPane.OK_OPTION) {
+					controller.terminateLogger();
 					dispose();
 					System.gc();	
 				}

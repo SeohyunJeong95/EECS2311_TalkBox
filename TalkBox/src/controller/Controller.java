@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
+import Logger.ActionLogger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,10 +26,13 @@ public class Controller {
 	
 	private TalkBox talkbox;
 	private MainFrame view;
-	//talkboc save to object  set audiofile and talbox create . 
+	private ActionLogger log;
+	
+	//talkbox save to object  set audiofile and talbox create . 
 	
 	public Controller() {
 		this.talkbox = new TalkBox();//initialize with talkbox setter method
+		log = new ActionLogger("src\\Logger\\log.txt", true);
 	}
 	
 	/**
@@ -131,5 +137,22 @@ public class Controller {
 	public static Dimension getIconDimensions(ImageIcon icon) {
 		Dimension result = new Dimension(icon.getIconWidth(), icon.getIconHeight());
 		return result;
+	}
+	
+	public void log(String text) {
+		try {
+			log.writeToFile(text);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void terminateLogger() {
+		try {
+		log.writeToFile("end of log");
+		log.setAppend(false);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 }
