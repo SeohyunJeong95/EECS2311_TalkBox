@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import controller.Controller;
 import playground.Helpers;
 import utils.Recorder;
 
@@ -24,6 +25,8 @@ public class RecordDialog extends JDialog {
 	private String fileName;
 	private Recorder recorder;
 	private SetListener setListener;
+	private Controller controller;
+	private JLabel status;
 	
 	public int getAudioIndex() {
 		return audioIndex;
@@ -37,7 +40,7 @@ public class RecordDialog extends JDialog {
 		this.setListener = listener;
 	}
 
-	public RecordDialog(JFrame parent) {
+	public RecordDialog(JFrame parent, Controller arg_controller) {
 		super(parent, "Record...", false);
 		setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
@@ -45,11 +48,16 @@ public class RecordDialog extends JDialog {
 		audioFileName = new JTextField(10);
 		recordButton = new JToggleButton("Record");
 		recorder = new Recorder();
+		status = new JLabel();
+		
+		controller = arg_controller;
+		
 		
 		recordButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!validateFilename(audioFileName.getText())) {
+					controller.log("recording attempt, but filename was not valid");
 					return;
 				}
 				RecordDialog.this.fileName = audioFileName.getText();
@@ -61,6 +69,7 @@ public class RecordDialog extends JDialog {
 				
 						recorder.startRecording(completeFileSource);
 						button.setText("Stop");
+						controller.log("recordButton [Record] pressed, recording audio...");
 						
 					} else {
 						recorder.stopRecording();
@@ -68,12 +77,10 @@ public class RecordDialog extends JDialog {
 						if (RecordDialog.this.setListener != null) {
 							RecordDialog.this.setListener.setup(RecordDialog.this.audioIndex, RecordDialog.this.fileName + ".wav");
 						}
+						controller.log("recordButton [Record] pressed. Recording saved @ (" + RecordDialog.this.fileName + ".wav" + ")");
 						audioFileName.setText("");
 					}
-				}
-				
-				
-				
+				}			
 			}
 			
 		});
@@ -105,22 +112,20 @@ public class RecordDialog extends JDialog {
 		gc.gridx = 1;
 		
 		add(recordButton, gc);
-		
-		
-		
-		
-		
-		
-		
+			
 		setSize(400, 300);
 		setLocationRelativeTo(parent);
+		
+		/* Next Row */
+		gc.gridy++;
+		add(status, gc);
 		
 	}
 	
 	public boolean validateFilename(String newFile) {
 		
 		if (newFile.isEmpty()) {
-			System.out.println("filename is empty!");
+			status.setText("Filename is empty!");
 			return false;
 		}
 		else {
@@ -129,7 +134,7 @@ public class RecordDialog extends JDialog {
 			for (File f : actual.listFiles()) {
 				if (f.getName().equals(newFile + ".wav")) {
 					validated = false;
-					System.out.println("filename already exists");
+					status.setText("Filename already exists!");
 				}
 			}
 			return validated;

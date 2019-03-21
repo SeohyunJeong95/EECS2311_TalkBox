@@ -15,11 +15,10 @@ public class ActionLogger {
 		path =  file_path;
 	}
 	
-	public ActionLogger(String file_path, boolean append_value) {
+	public ActionLogger(String file_path, boolean append_value){
 		path = file_path;
 		try {
-			writeToFile("log start");
-			writeToFile("");
+			initializeLogger();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -35,6 +34,7 @@ public class ActionLogger {
 	
 	public void initializeLogger() throws IOException {
 		writeToFile("Log begins");
+		writeToFile("");
 		append = true;		
 	}
 	
