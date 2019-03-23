@@ -63,6 +63,7 @@ public class AudioSelectionPanel extends JPanel {
 	private JTextField audioSetName;
 	private JLabel searchLabel;
 	private JTextField searchAudio;
+	private DefaultListModel<String> DefaultListModel = new DefaultListModel();
 
 	public AudioSelectionPanel() {
 		// initialize
@@ -71,7 +72,8 @@ public class AudioSelectionPanel extends JPanel {
 		audioList = new JList();
 
 		// audio-Data (with Scrollbar)
-		audioData = new JList(getAudioList().toArray());
+		defmodel();
+		audioData = new JList(DefaultListModel);
 		audioData.setBorder(BorderFactory.createEtchedBorder());
 		audioData.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		audioData.setLayoutOrientation(JList.VERTICAL);
@@ -188,8 +190,7 @@ public class AudioSelectionPanel extends JPanel {
 		searchAudio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				searchAudio(searchAudio.getText());
-				}
-
+			}
 		});
 
 		add_set.addActionListener(new ActionListener() {
@@ -296,16 +297,27 @@ public class AudioSelectionPanel extends JPanel {
 			addAudioSet("");
 		}
 	}
+	//audioData defualtmodel
+	public void defmodel() {
+		ArrayList<?> searchlist = (ArrayList) getAudioList();
+		searchlist.stream().forEach((a)->{
+			String name = a.toString();	
+			DefaultListModel.addElement(name);
+		});
+	}
+	//serach audio by Jtextfield
 	public void searchAudio(String seachTerm) {
 		DefaultListModel<String> fil = new DefaultListModel();
 		ArrayList<?> searchlist = (ArrayList) getAudioList();
 		searchlist.stream().forEach((a)->{
 			String name = a.toString().toLowerCase();
+			String oriname = a.toString();
 			if(name.contains(seachTerm.toLowerCase())) {
-				fil.addElement(name);
+				fil.addElement(oriname);
 			}
 		});
-		audioData.setModel(fil);
+		DefaultListModel =fil;
+		audioData.setModel(DefaultListModel);
 		
 	}
 
@@ -334,7 +346,7 @@ public class AudioSelectionPanel extends JPanel {
 		/*
 		 * First Row
 		 * 
-		 * [audioSelection] [vv drop down (audiolist) vv] [audio Data dropdown bar]
+		 * Search Audio: 
 		 * 
 		 */
 		gc.gridy = 0;
@@ -352,6 +364,12 @@ public class AudioSelectionPanel extends JPanel {
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(searchAudio, gc);
 		
+		/*
+		 * Next Row
+		 * 
+		 * [audioSelection] [vv drop down (audiolist) vv] [audio Data dropdown bar]
+		 * 
+		 */
 		gc.gridy = 1;
 
 		gc.weightx = 0.1;
@@ -463,6 +481,7 @@ public class AudioSelectionPanel extends JPanel {
 
 	}
 
+	
 	public void setJList(String[] audioSet) {
 		DefaultListModel listModel = new DefaultListModel();
 		for (int i = 0; i < audioSet.length; i++) {
@@ -483,6 +502,7 @@ public class AudioSelectionPanel extends JPanel {
 		undo.setEnabled(true);
 	}
 
+	//get Audiolist from "audio" folder
 	private List<String> getAudioList() {
 		File f = new File("src//audio");
 		List<String> filesname = new ArrayList<String>(Arrays.asList(f.list()));
