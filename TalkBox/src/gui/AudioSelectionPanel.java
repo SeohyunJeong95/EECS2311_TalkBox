@@ -267,7 +267,7 @@ public class AudioSelectionPanel extends JPanel {
 		return checkBox.isSelected();
 	}
 
-	//audioset name setting 
+	//get audioset name from user. no input => defname(Audio Set + numofaudioset) 
 	public void addAudioSet(String name) {
 		
 		if(name.equals("")) {
