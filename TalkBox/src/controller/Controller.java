@@ -101,7 +101,19 @@ public class Controller {
 //	public void generatePreview(ArrayList<String> custom) {
 //		view.revalidate();
 //	}
+	
+	public void setAudioSetname(String setname) {
+		talkbox.setAudiosetNames(setname);
+	}
 //	
+	public String getAudioSetname(int idx) {
+		return talkbox.getAudiosetNames(idx);
+	}
+//	
+	public List<String> getAudiosetNameslist() {
+		return talkbox.getAudiosetNameslist();
+
+	}
 	
 	public void save(File file) throws Exception {
 		FileOutputStream fileOutputStream = new FileOutputStream(file);

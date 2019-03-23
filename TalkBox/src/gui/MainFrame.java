@@ -38,6 +38,7 @@ public class MainFrame extends JFrame {
 		//Initialize
 		audioSelectionPanel = new AudioSelectionPanel();
 		audioSelectionPanel.def_audioset();
+		
 		toolBar = new ToolBar();
 		setupPanel = new SetupPanel();
 		controller = audioSelectionPanel.controller;
@@ -58,7 +59,7 @@ public class MainFrame extends JFrame {
 		
 		audioSelectionPanel.setSelectionListener(new SelectionListener() {
 			public void setAudioSelection(int n) {
-				refreshJList(n);
+			  refreshJList(n);
 			  setupSim(n);
 		      recordDialog.setAudioIndex(n);
 		      getToolBarS().turnOnStart();
@@ -75,6 +76,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
+		 
 		audioSelectionPanel.setSetListener(new SetListener() {
 			public void setup(int idx, String fileName) {
 				if (audioSelectionPanel.isChecked() && fileName != null) {
@@ -165,6 +167,7 @@ public class MainFrame extends JFrame {
 		});
 		//Add
 		getContentPane().add(audioSelectionPanel, BorderLayout.WEST);
+		
 		getContentPane().add(toolBar, BorderLayout.NORTH);
 		getContentPane().add(setupPanel, BorderLayout.CENTER);
 		getContentPane().add(toolBarS, BorderLayout.SOUTH);	
@@ -212,7 +215,6 @@ public class MainFrame extends JFrame {
 				if(jfilechooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
 					try {
 						controller.save(jfilechooser.getSelectedFile());
-						
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

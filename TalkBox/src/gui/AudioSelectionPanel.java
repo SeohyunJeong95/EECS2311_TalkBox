@@ -54,7 +54,7 @@ public class AudioSelectionPanel extends JPanel {
 	protected Controller controller;
 	private int numofaudioset;
 	private DefaultComboBoxModel comboModel;
-	ArrayList<String> audioset;
+	public ArrayList<String> audioset;
 	private RemoveListener removeListener;
 	private JButton undo;
 	private ClearListener clearListener;
@@ -70,6 +70,7 @@ public class AudioSelectionPanel extends JPanel {
 		comboModel = new DefaultComboBoxModel();
 		audioSelection = new JComboBox();
 		audioList = new JList();
+		
 
 		// audio-Data (with Scrollbar)
 		defmodel();
@@ -85,7 +86,7 @@ public class AudioSelectionPanel extends JPanel {
 		// search audiofile
 		searchLabel = new JLabel("Search Audio : ");
 		searchAudio = new JTextField(10);
-
+	
 		// set audioset name
 		audioSetNameLabel = new JLabel("AudioSet Name : ");
 		audioSetName = new JTextField(10);
@@ -182,7 +183,7 @@ public class AudioSelectionPanel extends JPanel {
 					audioset.add((String) audioData.getSelectedValue());
 					setListener.setup(idx, selection2);
 				}
-				controller.log("setButton [Select >>] pressed, (" + selection2 + ") added to the audioset");
+				controller.log("setButton [Select audiofiles>>] pressed, (" + selection2 + ") added to the audioset");
 			}
 
 		});
@@ -197,6 +198,7 @@ public class AudioSelectionPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String setname = audioSetName.getText();
 				addAudioSet(setname);
+				controller.setAudioSetname(setname);
 				controller.addAudioSet(new LinkedList<>(audioset));
 				// use controller to generate new preview
 				// controller.generatePreview(audioset);
@@ -288,13 +290,15 @@ public class AudioSelectionPanel extends JPanel {
 
 	}
 
+	//importing 
 	public void refre_audio() {
 		comboModel.removeAllElements();
 		comboModel.addElement("");
 		numofaudioset = 0;
 		numofaudioset++;
-		for (int i = 0; i < controller.getNumberOfAudioSets(); i++) {
-			addAudioSet("");
+		for (int i = 0; i < controller.getNumberOfAudioSets(); i++) { //4 
+			addAudioSet(controller.getAudioSetname(i));
+			
 		}
 	}
 	//audioData defualtmodel
