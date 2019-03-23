@@ -70,7 +70,10 @@ public class AudioSelectionPanel extends JPanel {
 		audioData.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		audioData.setLayoutOrientation(JList.VERTICAL);
 		audioData.setVisibleRowCount(5);
-	
+		scr_audio = new JScrollPane(audioData);
+		scr_audio.setMinimumSize(new Dimension(100, 50));
+		scr_audio.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
 
 
 		// pause-play
@@ -317,7 +320,7 @@ public class AudioSelectionPanel extends JPanel {
 		gc.gridx = 3;
 		gc.anchor = GridBagConstraints.FIRST_LINE_END;
 		gc.insets = new Insets(0, 0, 0, 5);
-		add(audioData,gc);
+		add(scr_audio,gc);
 	
 		
 
