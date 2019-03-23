@@ -27,6 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
@@ -37,7 +38,7 @@ public class AudioSelectionPanel extends JPanel {
 	private JComboBox audioSelection;
 	private JList audioList;
 
-	public JScrollPane scr_audio;
+	private JScrollPane scr_audio;
 	private JList<String> audioData;
 
 	private JButton playButton;
@@ -58,6 +59,8 @@ public class AudioSelectionPanel extends JPanel {
 	private JButton undo;
 	private ClearListener clearListener;
 	private AddListener addListener;
+	private JLabel audioSetNameLabel;
+	private JTextField audioSetName;
 
 	public AudioSelectionPanel() {
 		// initialize
@@ -65,6 +68,7 @@ public class AudioSelectionPanel extends JPanel {
 		audioSelection = new JComboBox();
 		audioList = new JList();
 
+		//audio-Data (with Scrollbar)
 		audioData = new JList(getAudioList().toArray());
 		audioData.setBorder(BorderFactory.createEtchedBorder());
 		audioData.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -73,6 +77,10 @@ public class AudioSelectionPanel extends JPanel {
 		scr_audio = new JScrollPane(audioData);
 		scr_audio.setMinimumSize(new Dimension(100, 50));
 		scr_audio.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		audioSetNameLabel = new JLabel("AudioSet Name : ");
+		audioSetName = new JTextField(10);
+		
 
 
 
@@ -176,7 +184,8 @@ public class AudioSelectionPanel extends JPanel {
 
 		add_set.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addAudioSet();
+				String setname =audioSetName.getText();
+				addAudioSet(setname);
 				controller.addAudioSet(new LinkedList<>(audioset));
 				// use controller to generate new preview
 				// controller.generatePreview(audioset);
@@ -216,6 +225,8 @@ public class AudioSelectionPanel extends JPanel {
 
 			}
 		});
+		
+		
 
 		Border innerBorder = BorderFactory.createTitledBorder("Select Audio");
 		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
@@ -256,8 +267,14 @@ public class AudioSelectionPanel extends JPanel {
 		return checkBox.isSelected();
 	}
 
-	public void addAudioSet() {
+	//audioset name setting 
+	public void addAudioSet(String name) {
+		
+		if(name.equals("")) {
 		comboModel.addElement("Audio Set " + numofaudioset);
+		}else {
+			comboModel.addElement(name);
+		}
 		numofaudioset++;
 
 	}
@@ -268,7 +285,7 @@ public class AudioSelectionPanel extends JPanel {
 		numofaudioset = 0;
 		numofaudioset++;
 		for (int i = 0; i < controller.getNumberOfAudioSets(); i++) {
-			addAudioSet();
+			addAudioSet("");
 		}
 	}
 
@@ -395,6 +412,18 @@ public class AudioSelectionPanel extends JPanel {
 		gc.weightx = 1;
 		gc.weighty = 1;
 
+		//
+		gc.gridx = 0;
+		gc.anchor = GridBagConstraints.FIRST_LINE_END;
+		gc.insets = new Insets(0, 0, 0, 5);
+		add(audioSetNameLabel, gc);
+
+		gc.gridx = 1;
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		gc.insets = new Insets(0, 0, 0, 0);
+		add(audioSetName, gc);
+		
+		gc.gridx = 2;
 		gc.insets = new Insets(0, 0, 0, 5);
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		add(add_set, gc);
