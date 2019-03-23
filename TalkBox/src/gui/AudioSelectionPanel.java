@@ -42,6 +42,7 @@ public class AudioSelectionPanel extends JPanel {
 
 	private JButton playButton;
 	private JButton setButton;
+	private JButton setButton2;
 	private JButton removeset;
 	private JButton add_set;
 	private SelectionListener selectionListener;
@@ -66,14 +67,12 @@ public class AudioSelectionPanel extends JPanel {
 
 		audioData = new JList(getAudioList().toArray());
 		audioData.setBorder(BorderFactory.createEtchedBorder());
-	    audioData.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        audioData.setLayoutOrientation(JList.VERTICAL);
-        scr_audio = new JScrollPane(audioData);
-        
-        
-        
-        
-        
+		audioData.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		audioData.setLayoutOrientation(JList.VERTICAL);
+		audioData.setVisibleRowCount(5);
+	
+
+
 		// pause-play
 		ImageIcon playIcon = new ImageIcon("src//icons//play-pause.png");
 		playIcon.setImage(Controller.scaleIcon(playIcon, 8));
@@ -81,8 +80,9 @@ public class AudioSelectionPanel extends JPanel {
 		playButton.setPreferredSize(Controller.getIconDimensions(playIcon));
 
 		// select button
-		setButton = new JButton("Select >>");
+		setButton = new JButton("Select audioset >>");
 
+		setButton2 = new JButton("Select audiofile >>");
 		// add
 		add_set = new JButton("Compile into New Set");
 
@@ -97,6 +97,7 @@ public class AudioSelectionPanel extends JPanel {
 
 		checkBox = new JCheckBox();
 		setButton.setEnabled(false);
+		setButton2.setEnabled(false);
 		add_set.setEnabled(false);
 		undo.setEnabled(false);
 		isChecked = false;
@@ -132,6 +133,7 @@ public class AudioSelectionPanel extends JPanel {
 				boolean isChecked = checkBox.isSelected();
 				if (isChecked) {
 					setButton.setEnabled(isChecked);
+					setButton2.setEnabled(isChecked);
 					add_set.setEnabled(isChecked);
 					controller.log("check box [create custom audio set] enabled");
 				} else {
@@ -146,14 +148,28 @@ public class AudioSelectionPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String selection = (String) audioList.getSelectedValue();
 				int idx = audioSelection.getSelectedIndex();
-				if (setListener != null && selection != null) {
-					setListener.setup(idx, selection);
-					audioset.add((String) audioList.getSelectedValue());
+				if (setListener != null && selection != null ) {
+						audioset.add((String) audioList.getSelectedValue());
+					    setListener.setup(idx, selection);
 				}
 				controller.log("setButton [Select >>] pressed, (" + selection + ") added to the audioset");
 			}
 
+			});
+		
+		setButton2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String selection2 = (String) audioData.getSelectedValue();
+				int idx = audioSelection.getSelectedIndex();
+				if (setListener != null && selection2 != null) {
+					audioset.add((String) audioData.getSelectedValue());
+					setListener.setup(idx, selection2);
+				}
+				controller.log("setButton [Select >>] pressed, (" + selection2 + ") added to the audioset");
+			}
+
 		});
+
 
 		add_set.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -164,6 +180,7 @@ public class AudioSelectionPanel extends JPanel {
 				audioset.clear();
 				checkBox.setSelected(false);
 				setButton.setEnabled(false);
+				setButton2.setEnabled(false);
 				add_set.setEnabled(false);
 				undo.setEnabled(false);
 				controller.log("add_set [Compile into new audio set] pressed");
@@ -300,8 +317,10 @@ public class AudioSelectionPanel extends JPanel {
 		gc.gridx = 3;
 		gc.anchor = GridBagConstraints.FIRST_LINE_END;
 		gc.insets = new Insets(0, 0, 0, 5);
-		add(audioData, gc);
+		add(audioData,gc);
 	
+		
+
 		/*
 		 * Next Row
 		 * 
@@ -342,7 +361,7 @@ public class AudioSelectionPanel extends JPanel {
 		/*
 		 * Next Row
 		 * 
-		 * [<< clear] [select >>]
+		 * [<< clear] [select >>] [select audiofiles >>]
 		 * 
 		 */
 
@@ -359,6 +378,10 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.FIRST_LINE_END;
 		add(setButton, gc);
 
+		gc.gridx = 2;
+		gc.insets = new Insets(0, 0, 0, 0);
+		gc.anchor = GridBagConstraints.FIRST_LINE_END;
+		add(setButton2, gc);
 		/*
 		 * Next Row
 		 * 
@@ -374,8 +397,6 @@ public class AudioSelectionPanel extends JPanel {
 		add(add_set, gc);
 
 	}
-
-	/// 여기다가 만들면돼 이거 써서 //
 
 	public void setJList(String[] audioSet) {
 		DefaultListModel listModel = new DefaultListModel();
@@ -396,16 +417,16 @@ public class AudioSelectionPanel extends JPanel {
 	public void turnOnUndo() {
 		undo.setEnabled(true);
 	}
+
 	private List<String> getAudioList() {
 		File f = new File("src//audio");
-		List<String> names = new ArrayList<String>(Arrays.asList(f.list()));
-		List<String> wavList = new ArrayList<>();
-		for (int i = 0; i < names.size(); i++) {
-			String str = names.get(i);
-			if (str.substring(str.indexOf('.'), str.length()).equals(".wav"))
-				wavList.add(str);
+		List<String> filesname = new ArrayList<String>(Arrays.asList(f.list()));
+		List<String> listWav = new ArrayList<>();
+		for (int i = 0; i < filesname.size(); i++) {
+			String str = filesname.get(i);
+			listWav.add(str);
 		}
-		return wavList;
+		return listWav;
 	}
 
 }
