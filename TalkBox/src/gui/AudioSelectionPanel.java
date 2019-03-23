@@ -61,6 +61,8 @@ public class AudioSelectionPanel extends JPanel {
 	private AddListener addListener;
 	private JLabel audioSetNameLabel;
 	private JTextField audioSetName;
+	private JLabel searchLabel;
+	private JTextField searchAudio;
 
 	public AudioSelectionPanel() {
 		// initialize
@@ -68,7 +70,7 @@ public class AudioSelectionPanel extends JPanel {
 		audioSelection = new JComboBox();
 		audioList = new JList();
 
-		//audio-Data (with Scrollbar)
+		// audio-Data (with Scrollbar)
 		audioData = new JList(getAudioList().toArray());
 		audioData.setBorder(BorderFactory.createEtchedBorder());
 		audioData.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -77,12 +79,14 @@ public class AudioSelectionPanel extends JPanel {
 		scr_audio = new JScrollPane(audioData);
 		scr_audio.setMinimumSize(new Dimension(100, 50));
 		scr_audio.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+
+		// search audiofile
+		searchLabel = new JLabel("Search Audio : ");
+		searchAudio = new JTextField(10);
+
+		// set audioset name
 		audioSetNameLabel = new JLabel("AudioSet Name : ");
 		audioSetName = new JTextField(10);
-		
-
-
 
 		// pause-play
 		ImageIcon playIcon = new ImageIcon("src//icons//play-pause.png");
@@ -159,15 +163,15 @@ public class AudioSelectionPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String selection = (String) audioList.getSelectedValue();
 				int idx = audioSelection.getSelectedIndex();
-				if (setListener != null && selection != null ) {
-						audioset.add((String) audioList.getSelectedValue());
-					    setListener.setup(idx, selection);
+				if (setListener != null && selection != null) {
+					audioset.add((String) audioList.getSelectedValue());
+					setListener.setup(idx, selection);
 				}
 				controller.log("setButton [Select >>] pressed, (" + selection + ") added to the audioset");
 			}
 
-			});
-		
+		});
+
 		setButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String selection2 = (String) audioData.getSelectedValue();
@@ -180,11 +184,17 @@ public class AudioSelectionPanel extends JPanel {
 			}
 
 		});
+		
+		searchAudio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				searchAudio(searchAudio.getText());
+				}
 
+		});
 
 		add_set.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String setname =audioSetName.getText();
+				String setname = audioSetName.getText();
 				addAudioSet(setname);
 				controller.addAudioSet(new LinkedList<>(audioset));
 				// use controller to generate new preview
@@ -225,8 +235,6 @@ public class AudioSelectionPanel extends JPanel {
 
 			}
 		});
-		
-		
 
 		Border innerBorder = BorderFactory.createTitledBorder("Select Audio");
 		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
@@ -267,12 +275,12 @@ public class AudioSelectionPanel extends JPanel {
 		return checkBox.isSelected();
 	}
 
-	//get audioset name from user. no input => defname(Audio Set + numofaudioset) 
+	// get audioset name from user. no input => defname(Audio Set + numofaudioset)
 	public void addAudioSet(String name) {
-		
-		if(name.equals("")) {
-		comboModel.addElement("Audio Set " + numofaudioset);
-		}else {
+
+		if (name.equals("")) {
+			comboModel.addElement("Audio Set " + numofaudioset);
+		} else {
 			comboModel.addElement(name);
 		}
 		numofaudioset++;
@@ -287,6 +295,18 @@ public class AudioSelectionPanel extends JPanel {
 		for (int i = 0; i < controller.getNumberOfAudioSets(); i++) {
 			addAudioSet("");
 		}
+	}
+	public void searchAudio(String seachTerm) {
+		DefaultListModel<String> fil = new DefaultListModel();
+		ArrayList<?> searchlist = (ArrayList) getAudioList();
+		searchlist.stream().forEach((a)->{
+			String name = a.toString().toLowerCase();
+			if(name.contains(seachTerm.toLowerCase())) {
+				fil.addElement(name);
+			}
+		});
+		audioData.setModel(fil);
+		
 	}
 
 	public void def_audioset() {
@@ -319,6 +339,21 @@ public class AudioSelectionPanel extends JPanel {
 		 */
 		gc.gridy = 0;
 
+		gc.weightx =0.01;
+		gc.weighty =0.01;
+
+		gc.gridx = 1;
+		gc.anchor = GridBagConstraints.FIRST_LINE_END;
+		gc.insets = new Insets(0, 0, 0, 5);
+		add(searchLabel, gc);
+
+		gc.gridx = 2;
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		gc.insets = new Insets(0, 0, 0, 0);
+		add(searchAudio, gc);
+		
+		gc.gridy = 1;
+
 		gc.weightx = 0.1;
 		gc.weighty = 0.1;
 
@@ -334,12 +369,10 @@ public class AudioSelectionPanel extends JPanel {
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(audioList, gc);
 
-		gc.gridx = 3;
+		gc.gridx = 2;
 		gc.anchor = GridBagConstraints.FIRST_LINE_END;
 		gc.insets = new Insets(0, 0, 0, 5);
-		add(scr_audio,gc);
-	
-		
+		add(scr_audio, gc);
 
 		/*
 		 * Next Row
@@ -422,7 +455,7 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(audioSetName, gc);
-		
+
 		gc.gridx = 2;
 		gc.insets = new Insets(0, 0, 0, 5);
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
