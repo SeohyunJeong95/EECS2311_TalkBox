@@ -1,14 +1,14 @@
-<2019-03-24T13:34:58.656>     
-<2019-03-24T13:35:01.387>     play button pressed to preview (Maybe.wav)
-<2019-03-24T13:35:27.971>     check box [create custom audio set] enabled
-<2019-03-24T13:35:28.808>     setButton [Select >>] pressed, (Sometimes.wav) added to the audioset
-<2019-03-24T13:35:29.391>     setButton [Select >>] pressed, (Sometimes.wav) added to the audioset
-<2019-03-24T13:35:33.102>     add_set [Compile into new audio set] pressed
-<2019-03-24T13:35:36.170>     play button pressed to preview (Sometimes.wav)
-<2019-03-24T13:35:43.429>     end of log
-<2019-03-24T13:35:44.561>     end of log
-<2019-03-24T13:35:46.030>     end of log
-<2019-03-24T13:35:47.330>     end of log
-<2019-03-24T13:35:48.478>     end of log
-<2019-03-24T13:35:49.659>     end of log
-<2019-03-24T13:35:50.831>     end of log
+<2019-03-24T15:31:06.026>     
+<2019-03-24T15:31:08.663>     check box [create custom audio set] enabled
+<2019-03-24T15:31:08.966>     Select from Audio List >> pressed, (null) added to the audioset
+<2019-03-24T15:31:10.974>     Select from Audio List >> pressed, (Cool.wav) added to the audioset
+<2019-03-24T15:31:11.109>     Select from Audio List >> pressed, (Cool.wav) added to the audioset
+<2019-03-24T15:31:11.223>     Select from Audio List >> pressed, (Cool.wav) added to the audioset
+<2019-03-24T15:31:18.250>     add_set [create into audio set] pressed
+<2019-03-24T15:31:34.835>     check box [create custom audio set] enabled
+<2019-03-24T15:31:35.217>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
+<2019-03-24T15:31:35.593>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
+<2019-03-24T15:31:35.717>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
+<2019-03-24T15:31:35.841>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
+<2019-03-24T15:31:36.927>     add_set [create into audio set] pressed
+<2019-03-24T15:37:53.568>     end of log
