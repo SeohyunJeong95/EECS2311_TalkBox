@@ -88,7 +88,7 @@ public class AudioSelectionPanel extends JPanel {
 		
 		// scrollPane for audio List
 		audioList2 = new JScrollPane(audioList);
-		audioList2.setMaximumSize(new Dimension(100, 50));
+		audioList2.setMinimumSize(new Dimension(130, 100));
 		audioList2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 		// search audiofile
@@ -379,7 +379,7 @@ public class AudioSelectionPanel extends JPanel {
 		// row 2 - Audio set .wav file list
 		gc.gridy = 1;
 		
-		gc.weightx = 1;
+		gc.weightx = 0.01;
 		gc.weighty = 0.01;
 		gc.ipadx = 0;
 		gc.gridx = 0;
@@ -513,7 +513,6 @@ public class AudioSelectionPanel extends JPanel {
 		JPanel customPanel3 = new JPanel(new GridLayout(1,2));
 		customPanel3.add(audioSetNameLabel);
 		customPanel3.add(audioSetName);
-		//customPanel3.add(add_set);
 		
 		gc.gridy = 9;
 
@@ -541,43 +540,6 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(add_set, gc);
-
-			
-
-
-		
-		/*JPanel topContainer = new JPanel(new GridLayout(2,2));
-		
-		JPanel searchContainer = new JPanel(new GridLayout(1,2));
-		searchContainer.add(searchLabel);
-		searchContainer.add(searchAudio);
-		searchContainer.setPreferredSize(new Dimension(175, 0));
-		topContainer.add(searchContainer);
-		topContainer.add(scr_audio);
-		topContainer.add(audioSelection);
-		topContainer.add(audioList);
-		add(topContainer);
-		
-		
-		JPanel buttonContainer = new JPanel(new GridLayout(1,2));
-		buttonContainer.add(playButton);
-		buttonContainer.add(removeset);
-		buttonContainer.setPreferredSize(new Dimension(200, 50));
-		add(buttonContainer);
-		
-		JPanel checkboxContainer = new JPanel(new GridLayout(1,2));
-		checkboxContainer.add(new JLabel("Create Custom Audio Set: "));
-		checkboxContainer.add(checkBox);
-		add(checkboxContainer);
-		
-		JPanel bottomContainer = new JPanel(new GridLayout(3,2));
-		bottomContainer.add(setButton);
-		bottomContainer.add(setButton2);
-		bottomContainer.add(audioSetNameLabel);
-		bottomContainer.add(audioSetName);
-		bottomContainer.add(add_set);
-		bottomContainer.add(undo);
-		add(bottomContainer);*/
 		
 		//GridBagConstraints gc = new GridBagConstraints();
 
