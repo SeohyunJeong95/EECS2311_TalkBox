@@ -27,7 +27,6 @@ import utils.Stereo;
 
 public class MainFrameSim extends JFrame {
 	
-	
 	private Stereo audioPlayer;
 	private int idx;
 	private Map<Integer, String> map = new HashMap<>();
@@ -58,7 +57,7 @@ public class MainFrameSim extends JFrame {
 					MainFrameSim.this.mf.setVisible(true);
 					MainFrameSim.this.mf.getToolBarS().turnOnStart();
 					dispose();
-					System.gc();	
+					System.gc();
 				}
 				
 			}
@@ -72,7 +71,7 @@ public class MainFrameSim extends JFrame {
 	}
 	
 	public void showIt() {
-		setSize(500,600);
+		setSize(800,800);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}

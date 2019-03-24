@@ -154,8 +154,8 @@ public class MainFrame extends JFrame {
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
-				if (action == JOptionPane.OK_OPTION) {
+				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
+				if (action == JOptionPane.YES_OPTION) {
 					controller.terminateLogger();
 					dispose();
 					System.gc();	
@@ -175,7 +175,7 @@ public class MainFrame extends JFrame {
 	
 
 	public void showIt() {
-		setSize(1000,1000);
+		setSize(550,700);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}
@@ -184,8 +184,8 @@ public class MainFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		
 		JMenu fileMenu = new JMenu("File");
-		JMenuItem exportDataItem = new JMenuItem("Export Data...");
-		JMenuItem importDataItem = new JMenuItem("Import Data...");
+		JMenuItem exportDataItem = new JMenuItem("Export Data");
+		JMenuItem importDataItem = new JMenuItem("Import Data");
 		JMenuItem exitItem = new JMenuItem("Exit");
 		
 		fileMenu.add(exportDataItem);
@@ -225,8 +225,8 @@ public class MainFrame extends JFrame {
 	
 		exitItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
-				if (action == JOptionPane.OK_OPTION) {
+				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
+				if (action == JOptionPane.YES_OPTION) {
 					
 					dispose();
 					System.gc();

@@ -1,7 +1,2 @@
-<2019-03-23T01:21:53.587>     
-<2019-03-23T01:21:55.996>     check box [create custom audio set] enabled
-<2019-03-23T01:21:59.916>     setButton [Select >>] pressed, (Bored.wav) added to the audioset
-<2019-03-23T01:22:00.116>     setButton [Select >>] pressed, (Bored.wav) added to the audioset
-<2019-03-23T01:22:00.258>     setButton [Select >>] pressed, (Bored.wav) added to the audioset
-<2019-03-23T01:22:00.814>     add_set [Compile into new audio set] pressed
-<2019-03-23T01:22:05.451>     end of log
+<2019-03-23T23:42:06.808>     
+<2019-03-23T23:42:13.362>     end of log

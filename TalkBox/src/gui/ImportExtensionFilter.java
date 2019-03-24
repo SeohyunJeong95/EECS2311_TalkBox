@@ -27,7 +27,7 @@ public class ImportExtensionFilter extends FileFilter{
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return "Talkboc database files (*.tbc)";
+		return "Talkbox database files (*.tbc)";
 	}
 
 }

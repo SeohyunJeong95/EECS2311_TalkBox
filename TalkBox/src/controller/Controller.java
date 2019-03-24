@@ -136,6 +136,7 @@ public class Controller {
 	
 	public static Dimension getIconDimensions(ImageIcon icon) {
 		Dimension result = new Dimension(icon.getIconWidth(), icon.getIconHeight());
+		
 		return result;
 	}
 	

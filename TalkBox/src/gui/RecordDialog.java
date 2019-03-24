@@ -41,7 +41,7 @@ public class RecordDialog extends JDialog {
 	}
 
 	public RecordDialog(JFrame parent, Controller arg_controller) {
-		super(parent, "Record...", false);
+		super(parent, "Record Audio", false);
 		setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		
@@ -113,23 +113,22 @@ public class RecordDialog extends JDialog {
 		
 		add(recordButton, gc);
 			
-		setSize(400, 300);
+		setSize(250, 200);
 		setLocationRelativeTo(parent);
 		
 		/* Next Row */
 		gc.gridy++;
 		add(status, gc);
-		
 	}
 	
 	public boolean validateFilename(String newFile) {
-		
 		if (newFile.isEmpty()) {
 			status.setText("Filename is empty!");
 			return false;
 		}
 		else {
 			boolean validated = true;
+			status.setText("");
 			File actual = new File("src\\audio");
 			for (File f : actual.listFiles()) {
 				if (f.getName().equals(newFile + ".wav")) {
