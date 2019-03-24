@@ -684,7 +684,6 @@ public class AudioSelectionPanel extends JPanel {
 	public void setJList(String[] audioSet) {
 		DefaultListModel listModel = new DefaultListModel();
 		for (int i = 0; i < audioSet.length; i++) {
-			//String name = audioSet[i].substring(0, audioSet[i].length() - 4);
 			listModel.addElement(audioSet[i]);
 		}
 		audioList.setModel(listModel);
