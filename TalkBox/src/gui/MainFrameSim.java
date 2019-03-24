@@ -7,11 +7,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -52,8 +54,8 @@ public class MainFrameSim extends JFrame {
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
-				if (action == JOptionPane.OK_OPTION) {
+				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
+				if (action == JOptionPane.YES_OPTION) {
 					MainFrameSim.this.mf.setVisible(true);
 					MainFrameSim.this.mf.getToolBarS().turnOnStart();
 					dispose();
@@ -71,7 +73,7 @@ public class MainFrameSim extends JFrame {
 	}
 	
 	public void showIt() {
-		setSize(800,800);
+		setSize(440,600);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}
@@ -81,11 +83,17 @@ public class MainFrameSim extends JFrame {
 			this.remove(buttonPanel);
 			this.idx = idx;
 		}
-		label.setText("Audio Set " + (idx + 1));
+		 // naming the audio sets on simulator
+		if (idx < 4) { 
+			label.setText("Audio Set " + (idx + 1));
+		} else {
+			label.setText(controller.getAudioSetname(idx));
+		}
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(label, BorderLayout.NORTH);
 		String[][] audioFileSet = controller.getFileNames();
 		String[] audioSet = audioFileSet[idx];
+		
 		JPanel panel = new JPanel();
 		this.buttonPanel = panel;
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -94,7 +102,7 @@ public class MainFrameSim extends JFrame {
 		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		
 		for(int i = 0; i < audioSet.length; i++) {
-			String file = audioSet[i];
+			String file = audioSet[i].substring(0, audioSet[i].length() - 4);
 			JButton add = new JButton(file);
 			add.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -111,6 +119,7 @@ public class MainFrameSim extends JFrame {
 		
 		this.add(panel, BorderLayout.CENTER);
 	}
+	
 	
 	public void setSwapButtons() {
 		int numberOfAudioSets = controller.getNumberOfAudioSets();
@@ -167,7 +176,7 @@ public class MainFrameSim extends JFrame {
 	private void play(JButton button) {
 		String path = controller.getPath().toString();
 		String completePath = path + "\\" + button.getText(); //**
-		audioPlayer.playMusic(button.getText());
+		audioPlayer.playMusic(button.getText() + ".wav");
 		soundPlayed = true;
 	}
 	
@@ -180,8 +189,8 @@ public class MainFrameSim extends JFrame {
 		menuBar.add(fileMenu);
 		exitItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Exit?", "Yes", JOptionPane.OK_CANCEL_OPTION);
-				if (action == JOptionPane.OK_OPTION) {
+				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
+				if (action == JOptionPane.YES_OPTION) {
 					MainFrameSim.this.mf.setVisible(true);
 					MainFrameSim.this.mf.getToolBarS().turnOnStart();
 					dispose();

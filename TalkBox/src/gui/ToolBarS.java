@@ -17,7 +17,7 @@ public class ToolBarS extends JPanel implements ActionListener {
 	public ToolBarS() {
 		
 		setBorder(BorderFactory.createEtchedBorder());
-		configButton = new JButton("Start");
+		configButton = new JButton("Start Simulator");
 		configButton.addActionListener(this);
 		
 		setLayout(new FlowLayout(FlowLayout.LEFT));
