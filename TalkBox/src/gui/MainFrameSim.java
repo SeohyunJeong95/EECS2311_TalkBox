@@ -10,6 +10,7 @@ import java.awt.event.WindowListener;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -45,7 +46,7 @@ public class MainFrameSim extends JFrame {
 		setVisible(false);
 		setLayout(new BorderLayout());
 		setJMenuBar(createMenuBar());
-		this.controller= controller;
+		this.controller = controller;
 		this.mf = mf;
 		
 		
@@ -121,7 +122,43 @@ public class MainFrameSim extends JFrame {
 	}
 	
 	
+	
 	public void setSwapButtons() {
+		int numberOfAudioSets = controller.getNumberOfAudioSets();
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		Border innerBorder = BorderFactory.createTitledBorder("Swap Audio Set");
+		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+		this.add(panel, BorderLayout.SOUTH);
+		
+		String[] baseSets = {"Audio Set 1", "Audio Set 2", "Audio Set 3", "Audio Set 4"};
+		Object[] temp1 = controller.getAudiosetNameslist().toArray();
+		Object[] temp2 = Arrays.copyOfRange(temp1, 4, temp1.length);
+		String[] nameListHalf = Arrays.copyOf(temp2, temp2.length, String[].class);
+		String[] nameList = Stream.of(baseSets, nameListHalf).flatMap(Stream::of).toArray(String[]::new);
+		JComboBox setList = new JComboBox(nameList);
+		for (int i = 0; i < nameList.length; i++) {
+			System.out.println(nameList[i]);
+		}
+
+		setList.setSelectedIndex(idx);
+		setList.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent event) {
+		        JComboBox setList = (JComboBox) event.getSource();
+		        Object selected = setList.getSelectedItem();
+                int idx = setList.getSelectedIndex();
+                //idx--;
+                setButtons(idx);
+                MainFrameSim.this.revalidate();
+				MainFrameSim.this.repaint();
+		    }
+		});
+		panel.add(setList);
+	}
+	
+	
+	/*public void setSwapButtons() {
 		int numberOfAudioSets = controller.getNumberOfAudioSets();
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -171,7 +208,7 @@ public class MainFrameSim extends JFrame {
 		
 		panel.add(swap1);
 		panel.add(swap2);
-	}
+	}*/
 	
 	private void play(JButton button) {
 		String path = controller.getPath().toString();
@@ -183,7 +220,7 @@ public class MainFrameSim extends JFrame {
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		
-		JMenu fileMenu = new JMenu("File");
+		JMenu fileMenu = new JMenu("Menu");
 		JMenuItem exitItem = new JMenuItem("Exit");
 		fileMenu.add(exitItem);
 		menuBar.add(fileMenu);

@@ -185,7 +185,7 @@ public class AudioSelectionPanel extends JPanel {
 					audioset.add((((String) audioList.getSelectedValue()) + ".wav").substring(3));
 					setListener.setup(idx, selection);
 				}
-				controller.log("setButton [Select >>] pressed, (" + selection + ") added to the audioset");
+				controller.log("Select from Audio Set >> pressed, (" + selection + ") added to the audioset");
 			}
 
 		});
@@ -198,7 +198,7 @@ public class AudioSelectionPanel extends JPanel {
 					audioset.add((String) audioData.getSelectedValue());
 					setListener.setup(idx, selection2);
 				}
-				controller.log("setButton [Select audiofiles>>] pressed, (" + selection2 + ") added to the audioset");
+				controller.log("Select from Audio List >> pressed, (" + selection2 + ") added to the audioset");
 			}
 
 		});
@@ -223,7 +223,9 @@ public class AudioSelectionPanel extends JPanel {
 				setButton2.setEnabled(false);
 				add_set.setEnabled(false);
 				undo.setEnabled(false);
-				controller.log("add_set [Compile into new audio set] pressed");
+				audioSetName.setText("");
+				audioSetName.setEditable(false);
+				controller.log("add_set [create into audio set] pressed");
 
 				if (addListener != null) {
 					addListener.clearSetup(true);
@@ -249,6 +251,7 @@ public class AudioSelectionPanel extends JPanel {
 					clearListener.clear(true);
 					audioset.clear();
 					undo.setEnabled(false);
+					controller.log("clear selections button pressed");
 				}
 
 			}
