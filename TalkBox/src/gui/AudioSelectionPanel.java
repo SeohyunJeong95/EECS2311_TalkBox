@@ -145,7 +145,7 @@ public class AudioSelectionPanel extends JPanel {
 
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String selection = (String) audioList.getSelectedValue();
+				String selection = (((String) audioList.getSelectedValue()) + ".wav").substring(3);
 				int idx = audioSelection.getSelectedIndex();
 				if (playListener != null && idx > 0) {
 					playListener.setFileName(idx, selection);
@@ -179,10 +179,10 @@ public class AudioSelectionPanel extends JPanel {
 		});
 		setButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String selection = (String) audioList.getSelectedValue();
+				String selection = (((String) audioList.getSelectedValue()) + ".wav").substring(3);
 				int idx = audioSelection.getSelectedIndex();
 				if (setListener != null && selection != null) {
-					audioset.add((String) audioList.getSelectedValue());
+					audioset.add((((String) audioList.getSelectedValue()) + ".wav").substring(3));
 					setListener.setup(idx, selection);
 				}
 				controller.log("setButton [Select >>] pressed, (" + selection + ") added to the audioset");
@@ -235,7 +235,7 @@ public class AudioSelectionPanel extends JPanel {
 		removeset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int n = audioSelection.getSelectedIndex() - 1;
-				String file = (String) audioList.getSelectedValue();
+				String file = (((String) audioList.getSelectedValue()) + ".wav").substring(3);
 				if (removeListener != null && n >= 0) {
 					removeListener.setRemoveInfo(n, file);
 					controller.log("audio file (" + file + ") removed from audio set");
@@ -684,7 +684,7 @@ public class AudioSelectionPanel extends JPanel {
 	public void setJList(String[] audioSet) {
 		DefaultListModel listModel = new DefaultListModel();
 		for (int i = 0; i < audioSet.length; i++) {
-			listModel.addElement(audioSet[i]);
+			listModel.addElement(i+1 + ". " + audioSet[i].substring(0, audioSet[i].length() - 4));
 		}
 		audioList.setModel(listModel);
 		// audioList.setPreferredSize(new Dimension(110, 68));
