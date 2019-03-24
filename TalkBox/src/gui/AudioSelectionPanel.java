@@ -409,11 +409,6 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(customPanel0, gc);
-
-		/*gc.gridx = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(removeset, gc);*/
 				
 		// row 4 - Audio file searching
 		JPanel searchPanel = new JPanel(new GridLayout(1,2));
@@ -432,12 +427,6 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(searchPanel, gc);
-
-		/*gc.gridx = 1;
-		gc.ipadx = 30;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(searchAudio, gc);*/
 		
 		// row 5 - Audio file list
 		gc.gridy = 4;
@@ -505,16 +494,6 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(customPanel2, gc);
-
-		/*gc.gridx = 1;
-		gc.anchor = GridBagConstraints.CENTER;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(setButton2, gc);
-		
-		gc.gridx = 2;
-		gc.anchor = GridBagConstraints.LINE_END;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(undo, gc);*/
 		
 		// row 9 - more custom set
 		gc.gridy = 8;
@@ -548,11 +527,6 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(customPanel3, gc);
-
-		/*gc.gridx = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(audioSetName, gc);*/
 		
 		// row 11 - more custom set
 		gc.gridy = 10;
@@ -570,10 +544,7 @@ public class AudioSelectionPanel extends JPanel {
 
 			
 
-		
-		
-		
-		// search container
+
 		
 		/*JPanel topContainer = new JPanel(new GridLayout(2,2));
 		
