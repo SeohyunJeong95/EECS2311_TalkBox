@@ -148,6 +148,7 @@ public class MainFrame extends JFrame {
 			public void setup(int idx, String fileName) {
 				controller.addAudio(idx, fileName);
 				refreshJList(idx);
+				audioSelectionPanel.searchAudio("");
 				setupSim(idx);
 			}
 			

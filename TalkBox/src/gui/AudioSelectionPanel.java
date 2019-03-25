@@ -706,7 +706,7 @@ public class AudioSelectionPanel extends JPanel {
 
 	//get Audiolist from "audio" folder
 	private List<String> getAudioList() {
-		File f = new File("src//audio");
+		File f = new File("bin//audio");
 		List<String> filesname = new ArrayList<String>(Arrays.asList(f.list()));
 		List<String> listWav = new ArrayList<>();
 		for (int i = 0; i < filesname.size(); i++) {
