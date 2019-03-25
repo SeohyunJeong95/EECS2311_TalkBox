@@ -53,19 +53,19 @@ public class MainFrameSim extends JFrame {
 		audioPlayer = new Stereo();
 		
 		
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
-				if (action == JOptionPane.YES_OPTION) {
-					MainFrameSim.this.mf.setVisible(true);
-					MainFrameSim.this.mf.getToolBarS().turnOnStart();
-					dispose();
-					System.gc();
-				}
-				
-			}
-			
-		});
+//		addWindowListener(new WindowAdapter() {
+//			public void windowClosing(WindowEvent e) {
+//				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
+//				if (action == JOptionPane.YES_OPTION) {
+//					MainFrameSim.this.mf.setVisible(true);
+//					MainFrameSim.this.mf.getToolBarS().turnOnStart();
+//					dispose();
+//					System.gc();
+//				}
+//				
+//			}
+//			
+//		});
 	}
 	
 	
@@ -75,7 +75,7 @@ public class MainFrameSim extends JFrame {
 	
 	public void showIt() {
 		setSize(440,600);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 	
@@ -158,57 +158,57 @@ public class MainFrameSim extends JFrame {
 	}
 	
 	
-	/*public void setSwapButtons() {
-		int numberOfAudioSets = controller.getNumberOfAudioSets();
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		Border innerBorder = BorderFactory.createTitledBorder("Swap Audio Set");
-		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
-		this.add(panel, BorderLayout.SOUTH);
-			
-		JButton swap1 = new JButton("1");
-		swap1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
-				int idx = Integer.parseInt(button.getText());
-				idx--;
-				setButtons(idx);
-				swap1Pressed = true;
-				swap2Pressed = false;
-				MainFrameSim.this.revalidate();
-				MainFrameSim.this.repaint();
-			}
-			
-		});
-		
-		JButton swap2 = new JButton("Swap");
-		swap2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JButton button = (JButton) e.getSource();
-				int swapIdx = 2;
-				swapIdx--;
-				if (swap1Pressed || !swap2Pressed) {
-					setButtons(swapIdx);
-					swap1Pressed = false;
-					swap2Pressed = true;
-				} else {
-					
-					if (MainFrameSim.this.idx == (numberOfAudioSets - 1)) {
-						MainFrameSim.this.idx = -1;
-					}
-					setButtons(++MainFrameSim.this.idx);
-				
-				}
-				MainFrameSim.this.revalidate();
-				MainFrameSim.this.repaint();
-			}
-			
-		});
-		
-		panel.add(swap1);
-		panel.add(swap2);
-	}*/
+//	public void setSwapButtons() {
+//		int numberOfAudioSets = controller.getNumberOfAudioSets();
+//		JPanel panel = new JPanel();
+//		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+//		Border innerBorder = BorderFactory.createTitledBorder("Swap Audio Set");
+//		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+//		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+//		this.add(panel, BorderLayout.SOUTH);
+//			
+//		JButton swap1 = new JButton("1");
+//		swap1.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				JButton button = (JButton) e.getSource();
+//				int idx = Integer.parseInt(button.getText());
+//				idx--;
+//				setButtons(idx);
+//				swap1Pressed = true;
+//				swap2Pressed = false;
+//				MainFrameSim.this.revalidate();
+//				MainFrameSim.this.repaint();
+//			}
+//			
+//		});
+//		
+//		JButton swap2 = new JButton("Swap");
+//		swap2.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				JButton button = (JButton) e.getSource();
+//				int swapIdx = 2;
+//				swapIdx--;
+//				if (swap1Pressed || !swap2Pressed) {
+//					setButtons(swapIdx);
+//					swap1Pressed = false;
+//					swap2Pressed = true;
+//				} else {
+//					
+//					if (MainFrameSim.this.idx == (numberOfAudioSets - 1)) {
+//						MainFrameSim.this.idx = -1;
+//					}
+//					setButtons(++MainFrameSim.this.idx);
+//				
+//				}
+//				MainFrameSim.this.revalidate();
+//				MainFrameSim.this.repaint();
+//			}
+//			
+//		});
+//		
+//		panel.add(swap1);
+//		panel.add(swap2);
+//	}
 	
 	private void play(JButton button) {
 		String path = controller.getPath().toString();
@@ -230,8 +230,8 @@ public class MainFrameSim extends JFrame {
 				if (action == JOptionPane.YES_OPTION) {
 					MainFrameSim.this.mf.setVisible(true);
 					MainFrameSim.this.mf.getToolBarS().turnOnStart();
-					dispose();
-					System.gc();	
+
+					System.exit(0);
 				}
 			}
 		});
