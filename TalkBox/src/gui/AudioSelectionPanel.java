@@ -90,6 +90,7 @@ public class AudioSelectionPanel extends JPanel {
 		audioList2 = new JScrollPane(audioList);
 		audioList2.setMinimumSize(new Dimension(130, 100));
 		audioList2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
 
 		// search audiofile
 		searchLabel = new JLabel("Search Audio List: ");
