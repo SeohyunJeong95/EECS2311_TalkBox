@@ -1,0 +1,7 @@
+<2019-03-25T12:30:14.991>     
+<2019-03-25T12:30:21.816>     check box [create custom audio set] enabled
+<2019-03-25T12:30:27.083>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
+<2019-03-25T12:30:27.330>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
+<2019-03-25T12:30:27.466>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
+<2019-03-25T12:30:28.825>     add_set [create into audio set] pressed
+<2019-03-25T12:42:48.793>     end of log
