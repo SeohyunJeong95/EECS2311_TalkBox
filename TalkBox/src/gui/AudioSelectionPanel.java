@@ -45,7 +45,7 @@ public class AudioSelectionPanel extends JPanel {
 	private JScrollPane scr_audio;
 	private JScrollPane audioList2;
 	private JList<String> audioData;
-
+	private ArrayList<String> iconData;
 	private JButton playButton;
 	private JButton setButton;
 	private JButton setButton2;
@@ -88,6 +88,7 @@ public class AudioSelectionPanel extends JPanel {
 		audioList = new JList();
 
 		// for icon popup
+		iconData = new ArrayList<>();
 		iconPopUp = new JFrame("Icon");
 		iconPopUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		iconPopUp.setBounds(250, 100, 400, 228);
@@ -234,6 +235,8 @@ public class AudioSelectionPanel extends JPanel {
 					setListener.setup(idx, selection2);
 				}
 				Img_repaint();
+				icon_btn.setEnabled(true);
+				remove_img.setEnabled(false);
 				controller.log("Select from Audio List >> pressed, (" + selection2 + ") added to the audioset");
 			}
 
@@ -301,6 +304,8 @@ public class AudioSelectionPanel extends JPanel {
 					addAudioSet(setname);
 					controller.setAudioSetname(setname);
 					controller.addAudioSet(new LinkedList<>(audioset));
+					controller.addIconBtn(new LinkedList<>(iconData));
+					System.out.println(iconData.toString());
 					// use controller to generate new preview
 					// controller.generatePreview(audioset);
 					if (addSetListener != null) {
@@ -789,9 +794,10 @@ public class AudioSelectionPanel extends JPanel {
 						img.setBounds(130, 17, 125, 125);
 						container.add(img);
 						remove_img.setEnabled(true);
+						icon_btn.setEnabled(false);
 						icon_label.setText("icon is applied! \"delete\" to reselect ");
 						icon_label.setBounds(110,150,220, 30);
-						
+						iconData.add(path);
 
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -806,7 +812,11 @@ public class AudioSelectionPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// array remove. 贸澜俊绰 disable 秦出具百促. 
 				Img_repaint();
+				iconData.remove(iconData.size()-1);
+				iconData.add("");
 				icon_label.setText("icon is delete! reselect the icon! ");
+				remove_img.setEnabled(false);
+				icon_btn.setEnabled(true);
 			}
 
 		});
