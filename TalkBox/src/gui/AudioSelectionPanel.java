@@ -82,15 +82,15 @@ public class AudioSelectionPanel extends JPanel {
 		audioList = new JList();
 
 		// for icon popup
-		iconPopUp = new JFrame("Image");
+		iconPopUp = new JFrame("Icon");
 		iconPopUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		iconPopUp.setBounds(250, 100, 400, 200);
 		container = iconPopUp.getContentPane();
 		container.setLayout(null);
 
-		logo = new JLabel("select the image for button");
+		logo = new JLabel("select icon for the button");
 		logo.setBounds(20, 5, 250, 30);
-		icon_btn = new JButton("choose image");
+		icon_btn = new JButton("choose icon");
 		icon_btn.setBounds(200, 5, 150, 30);
 		container.add(logo);
 		container.add(icon_btn);
