@@ -724,7 +724,12 @@ public class AudioSelectionPanel extends JPanel {
 				if (jfilechooser.showOpenDialog(AudioSelectionPanel.this) == JFileChooser.APPROVE_OPTION) {
 					try {
 						String path = jfilechooser.getSelectedFile().getAbsolutePath();
-					 	
+						ImageIcon playIcon5 = new ImageIcon(path);
+						playIcon5.setImage(Controller.scaleIcon(playIcon5, 8));
+						img = new JLabel(playIcon5);
+						img.setPreferredSize(Controller.getIconDimensions(playIcon5));
+						img.setBounds(130,30, 125, 125);
+						container.add(img);
 						
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
