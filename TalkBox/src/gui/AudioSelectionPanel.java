@@ -94,7 +94,7 @@ public class AudioSelectionPanel extends JPanel {
 		icon_btn.setBounds(200, 5, 150, 30);
 		container.add(logo);
 		container.add(icon_btn);
-		
+		img = new JLabel("");
 		initPopUpWindow();
 
 		// audio-Data (with Scrollbar)
@@ -221,6 +221,9 @@ public class AudioSelectionPanel extends JPanel {
 					audioset.add((String) audioData.getSelectedValue());
 					setListener.setup(idx, selection2);
 				}
+				container.remove(img);
+				container.revalidate();
+				container.repaint();
 				controller.log("Select from Audio List >> pressed, (" + selection2 + ") added to the audioset");
 			}
 
