@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import controller.Controller;
 import playground.Helpers;
@@ -39,7 +41,7 @@ public class RecordDialog extends JDialog {
 	public void setSetListener(SetListener listener) {
 		this.setListener = listener;
 	}
-
+	
 	public RecordDialog(JFrame parent, Controller arg_controller) {
 		super(parent, "Record Audio", false);
 		setLayout(new GridBagLayout());
@@ -47,10 +49,33 @@ public class RecordDialog extends JDialog {
 		
 		audioFileName = new JTextField(10);
 		recordButton = new JToggleButton("Record");
+		recordButton.setEnabled(false);
 		recorder = new Recorder();
 		status = new JLabel();
 		
 		controller = arg_controller;
+		
+		audioFileName.getDocument().addDocumentListener(new DocumentListener() {
+			  public void changedUpdate(DocumentEvent e) {
+			    changed();
+			  }
+			  public void removeUpdate(DocumentEvent e) {
+			    changed();
+			  }
+			  public void insertUpdate(DocumentEvent e) {
+			    changed();
+			  }
+
+			  public void changed() {
+			     if (audioFileName.getText().equals("")){
+			       recordButton.setEnabled(false);
+			     }
+			     else {
+			       recordButton.setEnabled(true);
+			    }
+
+			  }
+			});
 		
 		
 		recordButton.addActionListener(new ActionListener() {
@@ -64,6 +89,7 @@ public class RecordDialog extends JDialog {
 				JToggleButton button = (JToggleButton) e.getSource();
 				if (button == recordButton) {
 					if (button.isSelected()) {
+						audioFileName.setEditable(false);
 						String path = System.getProperty("user.dir");
 						String completeFileSource = path + "\\bin\\audio\\" + RecordDialog.this.fileName + ".wav";
 				
@@ -79,6 +105,7 @@ public class RecordDialog extends JDialog {
 						}
 						controller.log("recordButton [Record] pressed. Recording saved @ (" + RecordDialog.this.fileName + ".wav" + ")");
 						audioFileName.setText("");
+						audioFileName.setEditable(true);
 					}
 				}			
 			}
