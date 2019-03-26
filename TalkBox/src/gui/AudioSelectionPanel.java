@@ -423,12 +423,6 @@ public class AudioSelectionPanel extends JPanel {
 		numofaudioset++;
 		comboModel.addElement("Audio Set 1");
 		numofaudioset++;
-		comboModel.addElement("Audio Set 2");
-		numofaudioset++;
-		comboModel.addElement("Audio Set 3");
-		numofaudioset++;
-		comboModel.addElement("Audio Set 4");
-		numofaudioset++;
 		audioSelection.setModel(comboModel);
 		audioSelection.setSelectedIndex(0);
 

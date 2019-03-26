@@ -53,21 +53,21 @@ public class MainFrameSim extends JFrame {
 		audioPlayer = new Stereo();
 		
 		
-//		addWindowListener(new WindowAdapter() {
-//			public void windowClosing(WindowEvent e) {
-//				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
-//				if (action == JOptionPane.YES_OPTION) {
-//					MainFrameSim.this.mf.setVisible(true);
-//					MainFrameSim.this.mf.getToolBarS().turnOnStart();
-//					dispose();
-//					System.gc();
-//				}
-//				
-//			}
-//			
-//		});
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
+				if (action == JOptionPane.YES_OPTION) {
+					MainFrameSim.this.mf.setVisible(true);
+					MainFrameSim.this.mf.getToolBarS().turnOnStart();
+					dispose();
+					System.gc();
+				}
+
+			}
+
+		});
 	}
-	
+
 	
 	public void setIdx(int idx) {
 		this.idx = idx;
@@ -84,8 +84,7 @@ public class MainFrameSim extends JFrame {
 			this.remove(buttonPanel);
 			this.idx = idx;
 		}
-		 // naming the audio sets on simulator
-		if (idx < 4) { 
+		if (idx < 1) { 
 			label.setText("Audio Set " + (idx + 1));
 		} else {
 			label.setText(controller.getAudioSetname(idx));
@@ -124,7 +123,6 @@ public class MainFrameSim extends JFrame {
 	
 	
 	public void setSwapButtons() {
-		int numberOfAudioSets = controller.getNumberOfAudioSets();
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		Border innerBorder = BorderFactory.createTitledBorder("Swap Audio Set");
@@ -132,9 +130,9 @@ public class MainFrameSim extends JFrame {
 		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		this.add(panel, BorderLayout.SOUTH);
 		
-		String[] baseSets = {"Audio Set 1", "Audio Set 2", "Audio Set 3", "Audio Set 4"};
+		String[] baseSets = {"Audio Set 1"};
 		Object[] temp1 = controller.getAudiosetNameslist().toArray();
-		Object[] temp2 = Arrays.copyOfRange(temp1, 4, temp1.length);
+		Object[] temp2 = Arrays.copyOfRange(temp1, 1, temp1.length);
 		String[] nameListHalf = Arrays.copyOf(temp2, temp2.length, String[].class);
 		String[] nameList = Stream.of(baseSets, nameListHalf).flatMap(Stream::of).toArray(String[]::new);
 		JComboBox setList = new JComboBox(nameList);
