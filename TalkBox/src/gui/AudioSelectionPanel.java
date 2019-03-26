@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -22,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -66,8 +68,12 @@ public class AudioSelectionPanel extends JPanel {
 	private JTextField searchAudio;
 	private DefaultListModel<String> DefaultListModel = new DefaultListModel();
 	private JFrame iconPopUp;
+	private Container container;
 	private JButton icon_btn;
 	private JLabel logo;
+	private JLabel prevmes;
+	private JLabel img;
+	private JFileChooser jfilechooser;
 
 	public AudioSelectionPanel() {
 		// initialize
@@ -79,7 +85,7 @@ public class AudioSelectionPanel extends JPanel {
 		iconPopUp = new JFrame("Image");
 		iconPopUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		iconPopUp.setBounds(250, 100, 400, 200);
-		Container container = iconPopUp.getContentPane();
+		container = iconPopUp.getContentPane();
 		container.setLayout(null);
 
 		logo = new JLabel("select the image for button");
@@ -89,6 +95,7 @@ public class AudioSelectionPanel extends JPanel {
 		container.add(logo);
 		container.add(icon_btn);
 		
+		initPopUpWindow();
 
 		// audio-Data (with Scrollbar)
 		defmodel();
@@ -705,6 +712,29 @@ public class AudioSelectionPanel extends JPanel {
 			listWav.add(str);
 		}
 		return listWav;
+	}
+
+	private void initPopUpWindow() {
+
+		String s = System.getProperty("user.dir");
+		jfilechooser = new JFileChooser(s);
+		jfilechooser.addChoosableFileFilter(new ImportExtensionFilter());
+		icon_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (jfilechooser.showOpenDialog(AudioSelectionPanel.this) == JFileChooser.APPROVE_OPTION) {
+					try {
+						String path = jfilechooser.getSelectedFile().getAbsolutePath();
+					 	
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				container.repaint();
+			}
+			
+		});
 	}
 
 }
