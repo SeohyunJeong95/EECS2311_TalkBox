@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -63,12 +65,29 @@ public class AudioSelectionPanel extends JPanel {
 	private JLabel searchLabel;
 	private JTextField searchAudio;
 	private DefaultListModel<String> DefaultListModel = new DefaultListModel();
+	private JFrame iconPopUp;
+	private JButton icon_btn;
+	private JLabel logo;
 
 	public AudioSelectionPanel() {
 		// initialize
 		comboModel = new DefaultComboBoxModel();
 		audioSelection = new JComboBox();
 		audioList = new JList();
+
+		// for icon popup
+		iconPopUp = new JFrame("Image");
+		iconPopUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		iconPopUp.setBounds(250, 100, 400, 200);
+		Container container = iconPopUp.getContentPane();
+		container.setLayout(null);
+
+		logo = new JLabel("select the image for button");
+		logo.setBounds(20, 5, 250, 30);
+		icon_btn = new JButton("choose image");
+		icon_btn.setBounds(200, 5, 150, 30);
+		container.add(logo);
+		container.add(icon_btn);
 		
 
 		// audio-Data (with Scrollbar)
@@ -81,7 +100,7 @@ public class AudioSelectionPanel extends JPanel {
 		scr_audio = new JScrollPane(audioData);
 		scr_audio.setMinimumSize(new Dimension(100, 50));
 		scr_audio.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+
 		// scrollPane for audio List
 		audioList2 = new JScrollPane(audioList);
 		audioList2.setMinimumSize(new Dimension(130, 100));
@@ -90,7 +109,7 @@ public class AudioSelectionPanel extends JPanel {
 		// search audiofile
 		searchLabel = new JLabel("Search Audio List: ");
 		searchAudio = new JTextField(10);
-	
+
 		// set audioset name
 		audioSetNameLabel = new JLabel("Audio Set Name: ");
 		audioSetName = new JTextField(10);
@@ -188,6 +207,7 @@ public class AudioSelectionPanel extends JPanel {
 
 		setButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				iconPopUp.setVisible(true);
 				String selection2 = (String) audioData.getSelectedValue();
 				int idx = audioSelection.getSelectedIndex();
 				if (setListener != null && selection2 != null) {
@@ -198,8 +218,7 @@ public class AudioSelectionPanel extends JPanel {
 			}
 
 		});
-		
-		
+
 		searchAudio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				searchAudio(searchAudio.getText());
@@ -261,7 +280,6 @@ public class AudioSelectionPanel extends JPanel {
 		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		layoutComponents();
-		
 
 	}
 
@@ -288,7 +306,7 @@ public class AudioSelectionPanel extends JPanel {
 	public void setAddListener(AddListener listener) {
 		this.addListener = listener;
 	}
-	
+
 	public void setAddSetListener(AddSetListener listener) {
 		this.addSetListener = listener;
 	}
@@ -313,39 +331,41 @@ public class AudioSelectionPanel extends JPanel {
 
 	}
 
-	//importing 
+	// importing
 	public void refre_audio() {
 		comboModel.removeAllElements();
 		comboModel.addElement("");
 		numofaudioset = 0;
 		numofaudioset++;
-		for (int i = 0; i < controller.getNumberOfAudioSets(); i++) { //4 
+		for (int i = 0; i < controller.getNumberOfAudioSets(); i++) { // 4
 			addAudioSet(controller.getAudioSetname(i));
-			
+
 		}
 	}
-	//audioData default model
+
+	// audioData default model
 	public void defmodel() {
 		ArrayList<?> searchlist = (ArrayList) getAudioList();
-		searchlist.stream().forEach((a)->{
-			String name = a.toString();	
+		searchlist.stream().forEach((a) -> {
+			String name = a.toString();
 			DefaultListModel.addElement(name);
 		});
 	}
-	//search audio by Jtextfield
+
+	// search audio by Jtextfield
 	public void searchAudio(String searchTerm) {
 		DefaultListModel<String> fil = new DefaultListModel();
 		ArrayList<?> searchlist = (ArrayList) getAudioList();
-		searchlist.stream().forEach((a)->{
+		searchlist.stream().forEach((a) -> {
 			String name = a.toString().toLowerCase();
 			String oriname = a.toString();
-			if(name.contains(searchTerm.toLowerCase())) {
+			if (name.contains(searchTerm.toLowerCase())) {
 				fil.addElement(oriname);
 			}
 		});
 		DefaultListModel = fil;
 		audioData.setModel(DefaultListModel);
-		
+
 	}
 
 	public void def_audioset() {
@@ -367,25 +387,25 @@ public class AudioSelectionPanel extends JPanel {
 
 	private void layoutComponents() {
 		setLayout(new GridBagLayout());
-		
+
 		GridBagConstraints gc = new GridBagConstraints();
-		
+
 		// row 1 - Audio set selector
 		gc.gridy = 0;
 
 		gc.weightx = 0.01;
 		gc.weighty = 0.01;
-		
+
 		gc.gridx = 0;
 		gc.gridwidth = 2;
 		gc.ipadx = 100;
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(audioSelection, gc);
-		
+
 		// row 2 - Audio set .wav file list
 		gc.gridy = 1;
-		
+
 		gc.weightx = 0.01;
 		gc.weighty = 0.01;
 		gc.ipadx = 0;
@@ -394,16 +414,16 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(audioList2, gc);
-		
+
 		// row 3 - play and remove buttons
-		JPanel customPanel0 = new JPanel(new GridLayout(1,3));
+		JPanel customPanel0 = new JPanel(new GridLayout(1, 3));
 		customPanel0.add(playButton);
 		JButton blank = new JButton("blank");
 		blank.setVisible(false);
 		customPanel0.add(blank);
-	
+
 		customPanel0.add(removeset);
-		
+
 		gc.gridy = 2;
 
 		gc.weightx = 0.01;
@@ -416,12 +436,12 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(customPanel0, gc);
-				
+
 		// row 4 - Audio file searching
-		JPanel searchPanel = new JPanel(new GridLayout(1,2));
+		JPanel searchPanel = new JPanel(new GridLayout(1, 2));
 		searchPanel.add(searchLabel);
 		searchPanel.add(searchAudio);
-		
+
 		gc.gridy = 3;
 
 		gc.gridwidth = 1;
@@ -434,22 +454,20 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(searchPanel, gc);
-		
+
 		// row 5 - Audio file list
 		gc.gridy = 4;
-		
+
 		gc.weightx = 0.01;
 		gc.weighty = 0.01;
-		
+
 		gc.gridx = 0;
 		gc.gridwidth = 2;
 		gc.ipadx = 160;
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(scr_audio, gc);
-		
-		
-		
+
 		// row 6 - Create custom set
 		gc.gridy = 5;
 
@@ -468,7 +486,7 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(checkBox, gc);
-		
+
 		// row 7 - Create custom set
 		gc.gridy = 6;
 
@@ -483,14 +501,13 @@ public class AudioSelectionPanel extends JPanel {
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(checkBox, gc);
 
-				
 		// row 8 - more custom set
-		JPanel customPanel2 = new JPanel(new GridLayout(1,2));
+		JPanel customPanel2 = new JPanel(new GridLayout(1, 2));
 		customPanel2.add(setButton);
 		customPanel2.add(setButton2);
-		
+
 		gc.gridy = 7;
-		
+
 		gc.weightx = 0.01;
 		gc.weighty = 0.01;
 
@@ -501,7 +518,7 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(customPanel2, gc);
-		
+
 		// row 9 - more custom set
 		gc.gridy = 8;
 
@@ -515,12 +532,12 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(undo, gc);
-		
+
 		// row 10 - more custom set
-		JPanel customPanel3 = new JPanel(new GridLayout(1,2));
+		JPanel customPanel3 = new JPanel(new GridLayout(1, 2));
 		customPanel3.add(audioSetNameLabel);
 		customPanel3.add(audioSetName);
-		
+
 		gc.gridy = 9;
 
 		gc.weightx = 0.01;
@@ -533,7 +550,7 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(customPanel3, gc);
-		
+
 		// row 11 - more custom set
 		gc.gridy = 10;
 
@@ -547,56 +564,46 @@ public class AudioSelectionPanel extends JPanel {
 		gc.anchor = GridBagConstraints.CENTER;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(add_set, gc);
-		
-		//GridBagConstraints gc = new GridBagConstraints();
+
+		// GridBagConstraints gc = new GridBagConstraints();
 
 		/*
 		 * First Row
 		 * 
-		 * Search Audio: 
+		 * Search Audio:
 		 * 
 		 */
-		/*gc.gridy = 0;
-
-		gc.weightx = 0.01;
-		gc.weighty = 0.01;
-
-		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		gc.insets = new Insets(0, 0, 0, 5);
-		add(searchLabel, gc);
-
-		/*gc.gridx = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(searchAudio, gc);
-		
 		/*
-		 * Next Row
+		 * gc.gridy = 0;
+		 * 
+		 * gc.weightx = 0.01; gc.weighty = 0.01;
+		 * 
+		 * gc.gridx = 0; gc.anchor = GridBagConstraints.FIRST_LINE_END; gc.insets = new
+		 * Insets(0, 0, 0, 5); add(searchLabel, gc);
+		 * 
+		 * /*gc.gridx = 1; gc.anchor = GridBagConstraints.FIRST_LINE_START; gc.insets =
+		 * new Insets(0, 0, 0, 0); add(searchAudio, gc);
+		 * 
+		 * /* Next Row
 		 * 
 		 * [audioSelection] [vv drop down (audiolist) vv] [audio Data dropdown bar]
 		 * 
 		 */
-		/*gc.gridy = 1;
-
-		gc.weightx = 0.1;
-		gc.weighty = 0.1;
-
-		gc.gridx = 0;
-		gc.fill = GridBagConstraints.NONE;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		gc.insets = new Insets(0, 0, 0, 2);
-		add(audioSelection, gc);
-
-		gc.gridx = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(audioList, gc);
-
-		gc.gridx = 2;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		gc.insets = new Insets(0, 0, 0, 5);
-		add(scr_audio, gc);*/
+		/*
+		 * gc.gridy = 1;
+		 * 
+		 * gc.weightx = 0.1; gc.weighty = 0.1;
+		 * 
+		 * gc.gridx = 0; gc.fill = GridBagConstraints.NONE; gc.anchor =
+		 * GridBagConstraints.FIRST_LINE_END; gc.insets = new Insets(0, 0, 0, 2);
+		 * add(audioSelection, gc);
+		 * 
+		 * gc.gridx = 1; gc.anchor = GridBagConstraints.FIRST_LINE_START; gc.insets =
+		 * new Insets(0, 0, 0, 0); add(audioList, gc);
+		 * 
+		 * gc.gridx = 2; gc.anchor = GridBagConstraints.FIRST_LINE_END; gc.insets = new
+		 * Insets(0, 0, 0, 5); add(scr_audio, gc);
+		 */
 
 		/*
 		 * Next Row
@@ -604,15 +611,13 @@ public class AudioSelectionPanel extends JPanel {
 		 * [play] [remove]
 		 * 
 		 */
-		/*gc.gridy++;
-		gc.weightx = 0.1;
-		gc.weighty = 0.3;
-
-		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		add(playButton, gc);
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		add(removeset, gc);*/
+		/*
+		 * gc.gridy++; gc.weightx = 0.1; gc.weighty = 0.3;
+		 * 
+		 * gc.gridx = 0; gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		 * add(playButton, gc); gc.anchor = GridBagConstraints.FIRST_LINE_END;
+		 * add(removeset, gc);
+		 */
 
 		/*
 		 * Next Row
@@ -620,20 +625,15 @@ public class AudioSelectionPanel extends JPanel {
 		 * Create Custom Audio Set: [ ]
 		 * 
 		 */
-		/*gc.gridy++;
-		gc.weightx = 0.2;
-		gc.weighty = 0.2;
-
-		//
-		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		gc.insets = new Insets(0, 0, 0, 5);
-		add(new JLabel("Create Custom Audio Set: "), gc);
-
-		gc.gridx = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(checkBox, gc);*/
+		/*
+		 * gc.gridy++; gc.weightx = 0.2; gc.weighty = 0.2;
+		 * 
+		 * // gc.gridx = 0; gc.anchor = GridBagConstraints.FIRST_LINE_END; gc.insets =
+		 * new Insets(0, 0, 0, 5); add(new JLabel("Create Custom Audio Set: "), gc);
+		 * 
+		 * gc.gridx = 1; gc.anchor = GridBagConstraints.FIRST_LINE_START; gc.insets =
+		 * new Insets(0, 0, 0, 0); add(checkBox, gc);
+		 */
 
 		/*
 		 * Next Row
@@ -642,56 +642,43 @@ public class AudioSelectionPanel extends JPanel {
 		 * 
 		 */
 
-		/*gc.gridy++;
-		gc.weightx = 0.2;
-		gc.weighty = 0.2;
-
-		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		add(undo, gc);
-
-		gc.gridx = 1;
-		gc.insets = new Insets(0, 0, 0, 0);
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		add(setButton, gc);
-
-		gc.gridx = 2;
-		gc.insets = new Insets(0, 0, 0, 0);
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		add(setButton2, gc);*/
+		/*
+		 * gc.gridy++; gc.weightx = 0.2; gc.weighty = 0.2;
+		 * 
+		 * gc.gridx = 0; gc.anchor = GridBagConstraints.FIRST_LINE_START; add(undo, gc);
+		 * 
+		 * gc.gridx = 1; gc.insets = new Insets(0, 0, 0, 0); gc.anchor =
+		 * GridBagConstraints.FIRST_LINE_END; add(setButton, gc);
+		 * 
+		 * gc.gridx = 2; gc.insets = new Insets(0, 0, 0, 0); gc.anchor =
+		 * GridBagConstraints.FIRST_LINE_END; add(setButton2, gc);
+		 */
 		/*
 		 * Next Row
 		 * 
 		 * [Add Set]
 		 * 
 		 */
-		/*gc.gridy++;
-		gc.weightx = 1;
-		gc.weighty = 1;
-
-		
-		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
-		gc.insets = new Insets(0, 0, 0, 5);
-		add(audioSetNameLabel, gc);
-
-		gc.gridx = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(audioSetName, gc);
-
-		gc.gridx = 2;
-		gc.insets = new Insets(0, 0, 0, 5);
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		add(add_set, gc);*/
+		/*
+		 * gc.gridy++; gc.weightx = 1; gc.weighty = 1;
+		 * 
+		 * 
+		 * gc.gridx = 0; gc.anchor = GridBagConstraints.FIRST_LINE_END; gc.insets = new
+		 * Insets(0, 0, 0, 5); add(audioSetNameLabel, gc);
+		 * 
+		 * gc.gridx = 1; gc.anchor = GridBagConstraints.FIRST_LINE_START; gc.insets =
+		 * new Insets(0, 0, 0, 0); add(audioSetName, gc);
+		 * 
+		 * gc.gridx = 2; gc.insets = new Insets(0, 0, 0, 5); gc.anchor =
+		 * GridBagConstraints.FIRST_LINE_START; add(add_set, gc);
+		 */
 
 	}
 
-	
 	public void setJList(String[] audioSet) {
 		DefaultListModel listModel = new DefaultListModel();
 		for (int i = 0; i < audioSet.length; i++) {
-			listModel.addElement(i+1 + ". " + audioSet[i].substring(0, audioSet[i].length() - 4));
+			listModel.addElement(i + 1 + ". " + audioSet[i].substring(0, audioSet[i].length() - 4));
 		}
 		audioList.setModel(listModel);
 		// audioList.setPreferredSize(new Dimension(110, 68));
@@ -708,7 +695,7 @@ public class AudioSelectionPanel extends JPanel {
 		undo.setEnabled(true);
 	}
 
-	//get Audiolist from "audio" folder
+	// get Audiolist from "audio" folder
 	private List<String> getAudioList() {
 		File f = new File("bin//audio");
 		List<String> filesname = new ArrayList<String>(Arrays.asList(f.list()));
