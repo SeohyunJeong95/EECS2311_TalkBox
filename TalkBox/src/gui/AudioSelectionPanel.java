@@ -47,6 +47,8 @@ public class AudioSelectionPanel extends JPanel {
 	private JButton setButton;
 	private JButton setButton2;
 	private JButton removeset;
+	private JButton remove_img;
+	private JButton apply_img;
 	private JButton add_set;
 	private SelectionListener selectionListener;
 	private PlayListener playListener;
@@ -94,7 +96,14 @@ public class AudioSelectionPanel extends JPanel {
 		icon_btn.setBounds(200, 5, 150, 30);
 		container.add(logo);
 		container.add(icon_btn);
+		remove_img = new JButton("Delete");
+		remove_img.setBounds(100, 120, 80, 30);
+		apply_img = new JButton("Apply");
+		apply_img.setBounds(200, 120, 80, 30);
+		container.add(remove_img);
+		container.add(apply_img);
 		img = new JLabel("");
+
 		initPopUpWindow();
 
 		// audio-Data (with Scrollbar)
@@ -221,9 +230,7 @@ public class AudioSelectionPanel extends JPanel {
 					audioset.add((String) audioData.getSelectedValue());
 					setListener.setup(idx, selection2);
 				}
-				container.remove(img);
-				container.revalidate();
-				container.repaint();
+				Img_repaint();
 				controller.log("Select from Audio List >> pressed, (" + selection2 + ") added to the audioset");
 			}
 
@@ -731,9 +738,9 @@ public class AudioSelectionPanel extends JPanel {
 						playIcon5.setImage(Controller.scaleIcon(playIcon5, 8));
 						img = new JLabel(playIcon5);
 						img.setPreferredSize(Controller.getIconDimensions(playIcon5));
-						img.setBounds(130,30, 125, 125);
+						img.setBounds(130, 17, 125, 125);
 						container.add(img);
-						
+
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -741,8 +748,22 @@ public class AudioSelectionPanel extends JPanel {
 				}
 				container.repaint();
 			}
-			
+
 		});
+		remove_img.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// array remove. 贸澜俊绰 disable 秦出具百促. 
+				Img_repaint();
+			}
+
+		});
+	}
+
+	public void Img_repaint() {
+		container.remove(img);
+		container.revalidate();
+		container.repaint();
+
 	}
 
 }
