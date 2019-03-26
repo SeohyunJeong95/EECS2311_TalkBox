@@ -245,6 +245,28 @@ public class AudioSelectionPanel extends JPanel {
 			}
 		});
 		
+		searchAudio.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {
+				changed();
+			}
+			public void removeUpdate(DocumentEvent e) {
+				changed();
+			}
+			public void insertUpdate(DocumentEvent e) {
+				changed();
+			}
+
+			public void changed() {
+				if (searchAudio.getText().equals("")){
+					searchAudio("");
+				}
+				else {
+					searchAudio(searchAudio.getText());
+				}
+
+			}
+		});
+
 		// dynamic text checking for audiosetname
 		audioSetName.getDocument().addDocumentListener(new DocumentListener() {
 			  public void changedUpdate(DocumentEvent e) {
@@ -400,7 +422,7 @@ public class AudioSelectionPanel extends JPanel {
 			DefaultListModel.addElement(name);
 		});
 	}
-
+	
 	// search audio by Jtextfield
 	public void searchAudio(String searchTerm) {
 		DefaultListModel<String> fil = new DefaultListModel();
