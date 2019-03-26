@@ -48,7 +48,6 @@ public class AudioSelectionPanel extends JPanel {
 	private JButton setButton2;
 	private JButton removeset;
 	private JButton remove_img;
-	private JButton apply_img;
 	private JButton add_set;
 	private SelectionListener selectionListener;
 	private PlayListener playListener;
@@ -75,6 +74,7 @@ public class AudioSelectionPanel extends JPanel {
 	private JLabel logo;
 	private JLabel prevmes;
 	private JLabel img;
+	private JLabel icon_label;
 	private JFileChooser jfilechooser;
 
 	public AudioSelectionPanel() {
@@ -86,7 +86,7 @@ public class AudioSelectionPanel extends JPanel {
 		// for icon popup
 		iconPopUp = new JFrame("Icon");
 		iconPopUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		iconPopUp.setBounds(250, 100, 400, 200);
+		iconPopUp.setBounds(250, 100, 400, 228);
 		container = iconPopUp.getContentPane();
 		container.setLayout(null);
 
@@ -97,11 +97,11 @@ public class AudioSelectionPanel extends JPanel {
 		container.add(logo);
 		container.add(icon_btn);
 		remove_img = new JButton("Delete");
-		remove_img.setBounds(100, 120, 80, 30);
-		apply_img = new JButton("Apply");
-		apply_img.setBounds(200, 120, 80, 30);
+		remove_img.setBounds(150, 120, 80, 30);
 		container.add(remove_img);
-		container.add(apply_img);
+		icon_label = new JLabel("no icon is selected");
+		icon_label.setBounds(140,150,220, 30);
+		container.add(icon_label);
 		img = new JLabel("");
 
 		initPopUpWindow();
@@ -725,8 +725,8 @@ public class AudioSelectionPanel extends JPanel {
 	}
 
 	private void initPopUpWindow() {
-
-		String s = System.getProperty("user.dir");
+		remove_img.setEnabled(false);
+	    String s = System.getProperty("user.dir");
 		jfilechooser = new JFileChooser(s);
 		jfilechooser.addChoosableFileFilter(new ImportExtensionFilter());
 		icon_btn.addActionListener(new ActionListener() {
@@ -740,6 +740,10 @@ public class AudioSelectionPanel extends JPanel {
 						img.setPreferredSize(Controller.getIconDimensions(playIcon5));
 						img.setBounds(130, 17, 125, 125);
 						container.add(img);
+						remove_img.setEnabled(true);
+						icon_label.setText("icon is applied! \"delete\" to reselect ");
+						icon_label.setBounds(110,150,220, 30);
+						
 
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -754,6 +758,7 @@ public class AudioSelectionPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// array remove. 贸澜俊绰 disable 秦出具百促. 
 				Img_repaint();
+				icon_label.setText("icon is delete! reselect the icon! ");
 			}
 
 		});
