@@ -10,10 +10,12 @@ public class TalkBox implements TalkBoxConfiguration {
 
 	// Database where the audio sets are stored. It's a LinkedList (database) containing the 
 	private List<List<String>> audioFileNames;
+	private List<List<String>> iconDataList;	
 	private List<String> audioSetName;
 	// Constructor
 	public TalkBox() {
 		audioFileNames = new LinkedList<>();
+		iconDataList = new LinkedList<>();
 		audioSetName = new ArrayList<>();
 		setDefaultAudioset();
 
@@ -157,4 +159,9 @@ public class TalkBox implements TalkBoxConfiguration {
 			list.remove(index);
 		}
 	}
+	
+	public void addIconbtn(List<String> iconData) {
+		this.iconDataList.add(iconData);
+	}
+
 }

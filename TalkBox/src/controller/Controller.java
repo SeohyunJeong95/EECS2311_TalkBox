@@ -172,4 +172,10 @@ public class Controller {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void addIconBtn(List<String> iconData) {
+		talkbox.addIconbtn(iconData);
+	}
+	
+	
 }
