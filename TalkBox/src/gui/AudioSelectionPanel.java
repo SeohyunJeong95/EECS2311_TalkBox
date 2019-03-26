@@ -27,11 +27,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import controller.Controller;
 
@@ -61,6 +64,7 @@ public class AudioSelectionPanel extends JPanel {
 	public ArrayList<String> audioset;
 	private RemoveListener removeListener;
 	private JButton undo;
+	private boolean iconSelectFlag = false;
 	private ClearListener clearListener;
 	private AddListener addListener;
 	private JLabel audioSetNameLabel;
@@ -192,7 +196,6 @@ public class AudioSelectionPanel extends JPanel {
 				if (isChecked) {
 					setButton.setEnabled(isChecked);
 					setButton2.setEnabled(isChecked);
-					add_set.setEnabled(isChecked);
 					audioSetName.setEditable(true);
 					controller.log("check box [create custom audio set] enabled");
 				} else {
@@ -241,30 +244,59 @@ public class AudioSelectionPanel extends JPanel {
 				searchAudio(searchAudio.getText());
 			}
 		});
+		
+		// dynamic text checking for audiosetname
+		audioSetName.getDocument().addDocumentListener(new DocumentListener() {
+			  public void changedUpdate(DocumentEvent e) {
+			    changed();
+			  }
+			  public void removeUpdate(DocumentEvent e) {
+			    changed();
+			  }
+			  public void insertUpdate(DocumentEvent e) {
+			    changed();
+			  }
 
+			  public void changed() {
+			     if (audioSetName.getText().equals("")){
+			       add_set.setEnabled(false);
+			     }
+			     else {
+			       add_set.setEnabled(true);
+			    }
+
+			  }
+			});
+		
 		add_set.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String setname = audioSetName.getText();
-				addAudioSet(setname);
-				controller.setAudioSetname(setname);
-				controller.addAudioSet(new LinkedList<>(audioset));
-				// use controller to generate new preview
-				// controller.generatePreview(audioset);
-				if (addSetListener != null) {
-					addSetListener.dynamicSetup();
-				}
-				audioset.clear();
-				checkBox.setSelected(false);
-				setButton.setEnabled(false);
-				setButton2.setEnabled(false);
-				add_set.setEnabled(false);
-				undo.setEnabled(false);
-				audioSetName.setText("");
-				audioSetName.setEditable(false);
-				controller.log("add_set [create into audio set] pressed");
+				if (audioSetName.getText() == "") {
+					JOptionPane.showMessageDialog(null, "Please enter your desired Audio Set name.");
+					System.out.println("no text");
+				} else if (audioSetName.getText() != "") {
+					System.out.println("yes text");
+					String setname = audioSetName.getText();
+					addAudioSet(setname);
+					controller.setAudioSetname(setname);
+					controller.addAudioSet(new LinkedList<>(audioset));
+					// use controller to generate new preview
+					// controller.generatePreview(audioset);
+					if (addSetListener != null) {
+						addSetListener.dynamicSetup();
+					}
+					audioset.clear();
+					checkBox.setSelected(false);
+					setButton.setEnabled(false);
+					setButton2.setEnabled(false);
+					add_set.setEnabled(false);
+					undo.setEnabled(false);
+					audioSetName.setText("");
+					audioSetName.setEditable(false);
+					controller.log("add_set [create into audio set] pressed");
 
-				if (addListener != null) {
-					addListener.clearSetup(true);
+					if (addListener != null) {
+						addListener.clearSetup(true);
+					}
 				}
 			}
 
