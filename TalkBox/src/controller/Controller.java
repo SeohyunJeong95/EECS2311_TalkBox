@@ -105,6 +105,10 @@ public class Controller {
 	public void setAudioSetname(String setname) {
 		talkbox.setAudiosetNames(setname);
 	}
+	
+	public int getLastIndex() {
+		return talkbox.getLastIndex();
+	}
 //	
 	public String getAudioSetname(int idx) {
 		return talkbox.getAudiosetNames(idx);

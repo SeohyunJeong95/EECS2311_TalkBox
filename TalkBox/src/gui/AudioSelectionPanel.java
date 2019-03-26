@@ -47,6 +47,7 @@ public class AudioSelectionPanel extends JPanel {
 	private SelectionListener selectionListener;
 	private PlayListener playListener;
 	private SetListener setListener;
+	private AddSetListener addSetListener;
 	private JCheckBox checkBox;
 	private boolean isChecked;
 	protected Controller controller;
@@ -213,6 +214,9 @@ public class AudioSelectionPanel extends JPanel {
 				controller.addAudioSet(new LinkedList<>(audioset));
 				// use controller to generate new preview
 				// controller.generatePreview(audioset);
+				if (addSetListener != null) {
+					addSetListener.dynamicSetup();
+				}
 				audioset.clear();
 				checkBox.setSelected(false);
 				setButton.setEnabled(false);
@@ -283,6 +287,10 @@ public class AudioSelectionPanel extends JPanel {
 
 	public void setAddListener(AddListener listener) {
 		this.addListener = listener;
+	}
+	
+	public void setAddSetListener(AddSetListener listener) {
+		this.addSetListener = listener;
 	}
 
 	public List<String> getnewaudiolist() {

@@ -67,7 +67,10 @@ public class TalkBox implements TalkBoxConfiguration {
 		return audioSetName;
 
 	}
-
+	
+	public int getLastIndex() {
+		return audioFileNames.size() - 1;
+	}
 	
 
 	/**

@@ -66,6 +66,11 @@ public class MainFrame extends JFrame {
 			}
 			
 		});
+		
+		audioSelectionPanel.setAddSetListener(() -> {
+			setupSim(controller.getLastIndex());
+			toolBarS.turnOnStart();
+		});
 				
 		audioSelectionPanel.setPlayListener(new PlayListener() {
 			
