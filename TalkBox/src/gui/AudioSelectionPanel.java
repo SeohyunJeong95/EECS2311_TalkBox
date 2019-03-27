@@ -305,7 +305,6 @@ public class AudioSelectionPanel extends JPanel {
 					controller.setAudioSetname(setname);
 					controller.addAudioSet(new LinkedList<>(audioset));
 					controller.addIconBtn(new LinkedList<>(iconData));
-					System.out.println(iconData.toString());
 					// use controller to generate new preview
 					// controller.generatePreview(audioset);
 					if (addSetListener != null) {
@@ -810,7 +809,6 @@ public class AudioSelectionPanel extends JPanel {
 		});
 		remove_img.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// array remove. 贸澜俊绰 disable 秦出具百促. 
 				Img_repaint();
 				iconData.remove(iconData.size()-1);
 				iconData.add("");
@@ -818,7 +816,6 @@ public class AudioSelectionPanel extends JPanel {
 				remove_img.setEnabled(false);
 				icon_btn.setEnabled(true);
 			}
-
 		});
 	}
 

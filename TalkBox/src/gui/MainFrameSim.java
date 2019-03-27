@@ -9,10 +9,12 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -93,6 +95,8 @@ public class MainFrameSim extends JFrame {
 		this.add(label, BorderLayout.NORTH);
 		String[][] audioFileSet = controller.getFileNames();
 		String[] audioSet = audioFileSet[idx];
+		List<List<String>> iconDataList = controller.getAudioIconData();
+		List<String> iconData= iconDataList.get(idx);
 		
 		JPanel panel = new JPanel();
 		this.buttonPanel = panel;
@@ -102,8 +106,19 @@ public class MainFrameSim extends JFrame {
 		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		
 		for(int i = 0; i < audioSet.length; i++) {
+			JButton add;
 			String file = audioSet[i].substring(0, audioSet[i].length() - 4);
-			JButton add = new JButton(file);
+			if(iconData.get(i).equals("")) {
+			add = new JButton(file);
+			}else {
+     		ImageIcon playIcon = new ImageIcon(iconData.get(i));
+			playIcon.setImage(Controller.scaleIcon(playIcon, 8));
+			add = new JButton(playIcon);
+			add.setText(file);
+			add.setVerticalTextPosition( SwingConstants.BOTTOM );
+			add.setVerticalAlignment( SwingConstants.TOP );
+			add.setHorizontalTextPosition( SwingConstants.CENTER );
+            }
 			add.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JButton eventButton = (JButton) e.getSource();
@@ -211,7 +226,7 @@ public class MainFrameSim extends JFrame {
 	private void play(JButton button) {
 		String path = controller.getPath().toString();
 		String completePath = path + "\\" + button.getText(); //**
-		audioPlayer.playMusic(button.getText() + ".wav");
+		audioPlayer.playMusic(button.getText() + ".wav"); 
 		soundPlayed = true;
 	}
 	

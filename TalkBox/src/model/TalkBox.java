@@ -38,6 +38,20 @@ public class TalkBox implements TalkBoxConfiguration {
 		  set1.add("OK.wav");
 		  audioFileNames.add(0, set1);
 		  audioSetName.add("");
+		  List<String> Dataset1 = new LinkedList<>();
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  iconDataList.add(Dataset1);
+
+	
 	}
 
 	/**
@@ -162,6 +176,14 @@ public class TalkBox implements TalkBoxConfiguration {
 	
 	public void addIconbtn(List<String> iconData) {
 		this.iconDataList.add(iconData);
+	}
+
+//	public void removeIconbtn(int idx) {
+//		this.iconDataList.add(iconData);
+//	}
+	
+	public List<List<String>> getAudioIconData(){
+		return iconDataList;
 	}
 
 }

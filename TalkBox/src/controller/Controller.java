@@ -177,5 +177,11 @@ public class Controller {
 		talkbox.addIconbtn(iconData);
 	}
 	
+	public List<List<String>> getAudioIconData(){
+		return talkbox.getAudioIconData();
+	}
+
+	
+	
 	
 }
