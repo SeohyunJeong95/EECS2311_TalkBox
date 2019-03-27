@@ -97,7 +97,7 @@ public class AudioSelectionPanel extends JPanel {
 
 		logo = new JLabel("select icon for the button");
 		logo.setBounds(20, 5, 250, 30);
-		icon_btn = new JButton("choose icon");
+		icon_btn = new JButton("Select icon");
 		icon_btn.setBounds(200, 5, 150, 30);
 		container.add(logo);
 		container.add(icon_btn);
@@ -123,6 +123,7 @@ public class AudioSelectionPanel extends JPanel {
 		scr_audio.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 		// scrollPane for audio List
+		audioList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		audioList2 = new JScrollPane(audioList);
 		audioList2.setMinimumSize(new Dimension(130, 100));
 		audioList2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
