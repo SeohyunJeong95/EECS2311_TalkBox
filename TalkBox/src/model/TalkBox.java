@@ -178,9 +178,12 @@ public class TalkBox implements TalkBoxConfiguration {
 		this.iconDataList.add(iconData);
 	}
 
-//	public void removeIconbtn(int idx) {
-//		this.iconDataList.add(iconData);
-//	}
+	public void removeIconbtn(int setidx,int elementidx) {
+		List<String> list = this.iconDataList.get(setidx);
+		if (elementidx >=0) {
+			list.remove(elementidx);
+		}
+	}
 	
 	public List<List<String>> getAudioIconData(){
 		return iconDataList;

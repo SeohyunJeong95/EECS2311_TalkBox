@@ -1,8 +1,7 @@
-<2019-03-25T23:27:17.717106700>     
-<2019-03-25T23:27:19.320609700>     check box [create custom audio set] enabled
-<2019-03-25T23:27:22.897502900>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
-<2019-03-25T23:27:23.031810300>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
-<2019-03-25T23:27:23.128100700>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
-<2019-03-25T23:27:23.271460700>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
-<2019-03-25T23:27:23.621106>     Select from Audio List >> pressed, (Dont Like.wav) added to the audioset
-<2019-03-25T23:27:24.674024600>     add_set [create into audio set] pressed
+<2019-03-27T20:00:49.515>     
+<2019-03-27T20:00:52.317>     check box [create custom audio set] enabled
+<2019-03-27T20:00:52.874>     Select from Audio List >> pressed, (excuseme.wav) added to the audioset
+<2019-03-27T20:00:58.730>     Select from Audio List >> pressed, (Cool.wav) added to the audioset
+<2019-03-27T20:01:07.673>     Select from Audio List >> pressed, (Like.wav) added to the audioset
+<2019-03-27T20:01:14.567>     add_set [create into audio set] pressed
+<2019-03-27T20:01:22.130>     audio file (Like.wav) removed from audio set

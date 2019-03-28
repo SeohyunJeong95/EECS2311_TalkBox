@@ -333,8 +333,10 @@ public class AudioSelectionPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int n = audioSelection.getSelectedIndex() - 1;
 				String file = (((String) audioList.getSelectedValue()) + ".wav").substring(3);
+				int n1=Integer.parseInt(((String) audioList.getSelectedValue()).substring(0, 1));
 				if (removeListener != null && n >= 0) {
 					removeListener.setRemoveInfo(n, file);
+					removeListener.iconRemoveInfo(n, n1-1);
 					controller.log("audio file (" + file + ") removed from audio set");
 				}
 			}

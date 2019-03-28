@@ -180,8 +180,8 @@ public class Controller {
 	public List<List<String>> getAudioIconData(){
 		return talkbox.getAudioIconData();
 	}
-
-	
-	
+	public void removeIcon(int setidx,int elementidx) {
+		talkbox.removeIconbtn(setidx, elementidx);
+	}	
 	
 }
