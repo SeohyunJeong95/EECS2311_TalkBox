@@ -814,14 +814,6 @@ public class AudioSelectionPanel extends JPanel {
 			}
 		});
 		
-//		iconPopUp.addWindowListener(new WindowAdapter() {
-//		    public void windowClosed(WindowEvent e) {
-//		    	if (!icon_btn.getModel().isPressed()) {
-//					iconData.add("");
-//				}
-//		    }
-//		    
-//		});
 
 		remove_img.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
