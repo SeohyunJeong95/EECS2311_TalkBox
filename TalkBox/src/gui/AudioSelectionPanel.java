@@ -10,6 +10,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -105,10 +107,9 @@ public class AudioSelectionPanel extends JPanel {
 		remove_img.setBounds(150, 120, 80, 30);
 		container.add(remove_img);
 		icon_label = new JLabel("no icon is selected");
-		icon_label.setBounds(140,150,220, 30);
+		icon_label.setBounds(140, 150, 220, 30);
 		container.add(icon_label);
 		img = new JLabel("");
-
 		initPopUpWindow();
 
 		// audio-Data (with Scrollbar)
@@ -248,23 +249,24 @@ public class AudioSelectionPanel extends JPanel {
 				searchAudio(searchAudio.getText());
 			}
 		});
-		
+
 		searchAudio.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 				changed();
 			}
+
 			public void removeUpdate(DocumentEvent e) {
 				changed();
 			}
+
 			public void insertUpdate(DocumentEvent e) {
 				changed();
 			}
 
 			public void changed() {
-				if (searchAudio.getText().equals("")){
+				if (searchAudio.getText().equals("")) {
 					searchAudio("");
-				}
-				else {
+				} else {
 					searchAudio(searchAudio.getText());
 				}
 
@@ -273,39 +275,41 @@ public class AudioSelectionPanel extends JPanel {
 
 		// dynamic text checking for audiosetname
 		audioSetName.getDocument().addDocumentListener(new DocumentListener() {
-			  public void changedUpdate(DocumentEvent e) {
-			    changed();
-			  }
-			  public void removeUpdate(DocumentEvent e) {
-			    changed();
-			  }
-			  public void insertUpdate(DocumentEvent e) {
-			    changed();
-			  }
+			public void changedUpdate(DocumentEvent e) {
+				changed();
+			}
 
-			  public void changed() {
-			     if (audioSetName.getText().equals("")){
-			       add_set.setEnabled(false);
-			     }
-			     else {
-			       add_set.setEnabled(true);
-			    }
+			public void removeUpdate(DocumentEvent e) {
+				changed();
+			}
 
-			  }
-			});
-		
+			public void insertUpdate(DocumentEvent e) {
+				changed();
+			}
+
+			public void changed() {
+				if (audioSetName.getText().equals("")) {
+					add_set.setEnabled(false);
+				} else {
+					add_set.setEnabled(true);
+				}
+
+			}
+		});
+
 		add_set.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (audioSetName.getText() == "") {
 					JOptionPane.showMessageDialog(null, "Please enter your desired Audio Set name.");
 					System.out.println("no text");
 				} else if (audioSetName.getText() != "") {
-					System.out.println("yes text");
+				//	System.out.println("yes text");
 					String setname = audioSetName.getText();
 					addAudioSet(setname);
 					controller.setAudioSetname(setname);
 					controller.addAudioSet(new LinkedList<>(audioset));
 					controller.addIconBtn(new LinkedList<>(iconData));
+					iconData.removeAll(iconData);
 					// use controller to generate new preview
 					// controller.generatePreview(audioset);
 					if (addSetListener != null) {
@@ -333,10 +337,10 @@ public class AudioSelectionPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int n = audioSelection.getSelectedIndex() - 1;
 				String file = (((String) audioList.getSelectedValue()) + ".wav").substring(3);
-				int n1=Integer.parseInt(((String) audioList.getSelectedValue()).substring(0, 1));
+				int n1 = Integer.parseInt(((String) audioList.getSelectedValue()).substring(0, 1));
 				if (removeListener != null && n >= 0) {
 					removeListener.setRemoveInfo(n, file);
-					removeListener.iconRemoveInfo(n, n1-1);
+					removeListener.iconRemoveInfo(n, n1 - 1);
 					controller.log("audio file (" + file + ") removed from audio set");
 				}
 			}
@@ -429,7 +433,7 @@ public class AudioSelectionPanel extends JPanel {
 			DefaultListModel.addElement(name);
 		});
 	}
-	
+
 	// search audio by Jtextfield
 	public void searchAudio(String searchTerm) {
 		DefaultListModel<String> fil = new DefaultListModel();
@@ -781,7 +785,7 @@ public class AudioSelectionPanel extends JPanel {
 
 	private void initPopUpWindow() {
 		remove_img.setEnabled(false);
-	    String s = System.getProperty("user.dir");
+		String s = System.getProperty("user.dir");
 		jfilechooser = new JFileChooser(s);
 		jfilechooser.addChoosableFileFilter(new ImportExtensionFilter());
 		icon_btn.addActionListener(new ActionListener() {
@@ -798,7 +802,7 @@ public class AudioSelectionPanel extends JPanel {
 						remove_img.setEnabled(true);
 						icon_btn.setEnabled(false);
 						icon_label.setText("icon is applied! \"delete\" to reselect ");
-						icon_label.setBounds(110,150,220, 30);
+						icon_label.setBounds(110, 150, 220, 30);
 						iconData.add(path);
 
 					} catch (Exception e1) {
@@ -808,12 +812,21 @@ public class AudioSelectionPanel extends JPanel {
 				}
 				container.repaint();
 			}
-
 		});
+		
+//		iconPopUp.addWindowListener(new WindowAdapter() {
+//		    public void windowClosed(WindowEvent e) {
+//		    	if (!icon_btn.getModel().isPressed()) {
+//					iconData.add("");
+//				}
+//		    }
+//		    
+//		});
+
 		remove_img.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Img_repaint();
-				iconData.remove(iconData.size()-1);
+				iconData.remove(iconData.size() - 1);
 				iconData.add("");
 				icon_label.setText("icon is delete! reselect the icon! ");
 				remove_img.setEnabled(false);
