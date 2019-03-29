@@ -120,6 +120,7 @@ public class AudioSelectionPanel extends JPanel {
 		img = new JLabel("");
 		addIconBtn = new JButton("Add Selected Icon");
 		container.add(addIconBtn);
+		addIconBtn.setEnabled(false);
 		
 		initPopUpWindow();
 
@@ -786,7 +787,7 @@ public class AudioSelectionPanel extends JPanel {
 		String s = System.getProperty("user.dir");
 		jfilechooser = new JFileChooser(s);
 		FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
-		jfilechooser.addChoosableFileFilter(imageFilter);
+		jfilechooser.setFileFilter(imageFilter);
 		icon_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (jfilechooser.showOpenDialog(AudioSelectionPanel.this) == JFileChooser.APPROVE_OPTION) {
@@ -804,6 +805,7 @@ public class AudioSelectionPanel extends JPanel {
 						icon_label.setBounds(110, 150, 220, 30);
 						iconData.add(iconPath);
 						controller.log("Icon file chosen from file browser.");
+						addIconBtn.setEnabled(true);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -823,6 +825,7 @@ public class AudioSelectionPanel extends JPanel {
 				}
 				Img_repaint();
 				controller.log("Icon added to button and button added to set.");
+				addIconBtn.setEnabled(false);
 				iconPopUp.dispose();
 			}
 		});

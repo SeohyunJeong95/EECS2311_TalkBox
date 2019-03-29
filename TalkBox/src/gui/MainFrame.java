@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 		mfs = new MainFrameSim(controller, this);
 		String s = System.getProperty("user.dir"); 
 		jfilechooser = new JFileChooser(s);
-		jfilechooser.addChoosableFileFilter(new ImportExtensionFilter());
+		jfilechooser.setFileFilter(new ImportExtensionFilter());
 		recordDialog = new RecordDialog(this, controller);
 		reference = this;
 		getToolBarS().turnOffStart();
