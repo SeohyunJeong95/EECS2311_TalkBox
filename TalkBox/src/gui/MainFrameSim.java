@@ -110,7 +110,7 @@ public class MainFrameSim extends JFrame {
 			String file = audioSet[i].substring(0, audioSet[i].length() - 4);
 			if(iconData.get(i).equals("")) {
 			add = new JButton(file);
-			}else {
+			} else {
      		ImageIcon playIcon = new ImageIcon(iconData.get(i));
 			playIcon.setImage(Controller.scaleIcon(playIcon, 8));
 			add = new JButton(playIcon);

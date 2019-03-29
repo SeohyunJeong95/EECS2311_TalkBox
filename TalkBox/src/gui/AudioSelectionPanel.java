@@ -13,11 +13,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -37,6 +39,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.Controller;
 
@@ -82,6 +85,8 @@ public class AudioSelectionPanel extends JPanel {
 	private JLabel img;
 	private JLabel icon_label;
 	private JFileChooser jfilechooser;
+	private JButton addIconBtn;
+	private String iconPath;
 
 	public AudioSelectionPanel() {
 		// initialize
@@ -93,23 +98,29 @@ public class AudioSelectionPanel extends JPanel {
 		iconData = new ArrayList<>();
 		iconPopUp = new JFrame("Icon");
 		iconPopUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		iconPopUp.setBounds(250, 100, 400, 228);
+		iconPopUp.setBounds(250, 100, 400, 280);
 		container = iconPopUp.getContentPane();
-		container.setLayout(null);
-
-		logo = new JLabel("select icon for the button");
+		container.setLayout(new GridLayout(6,1));
+		GridLayout cont1 = new GridLayout(2,1);
+		
+		logo = new JLabel("Select an icon for this button");
+		logo.setHorizontalAlignment(JLabel.CENTER);
 		logo.setBounds(20, 5, 250, 30);
-		icon_btn = new JButton("Select icon");
+		icon_btn = new JButton("Browse directory");
 		icon_btn.setBounds(200, 5, 150, 30);
 		container.add(logo);
 		container.add(icon_btn);
-		remove_img = new JButton("Delete");
-		remove_img.setBounds(150, 120, 80, 30);
+		remove_img = new JButton("Delete current icon");
+		remove_img.setBounds(150, 120, 150, 30);
 		container.add(remove_img);
-		icon_label = new JLabel("no icon is selected");
+		icon_label = new JLabel("No icon selected");
+		icon_label.setHorizontalAlignment(JLabel.CENTER);
 		icon_label.setBounds(140, 150, 220, 30);
 		container.add(icon_label);
 		img = new JLabel("");
+		addIconBtn = new JButton("Add Selected Icon");
+		container.add(addIconBtn);
+		
 		initPopUpWindow();
 
 		// audio-Data (with Scrollbar)
@@ -230,16 +241,9 @@ public class AudioSelectionPanel extends JPanel {
 		setButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				iconPopUp.setVisible(true);
-				String selection2 = (String) audioData.getSelectedValue();
-				int idx = audioSelection.getSelectedIndex();
-				if (setListener != null && selection2 != null) {
-					audioset.add((String) audioData.getSelectedValue());
-					setListener.setup(idx, selection2);
-				}
-				Img_repaint();
 				icon_btn.setEnabled(true);
 				remove_img.setEnabled(false);
-				controller.log("Select from Audio List >> pressed, (" + selection2 + ") added to the audioset");
+				controller.log("Select from Audio Files >> pressed.");
 			}
 
 		});
@@ -299,35 +303,29 @@ public class AudioSelectionPanel extends JPanel {
 
 		add_set.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (audioSetName.getText() == "") {
-					JOptionPane.showMessageDialog(null, "Please enter your desired Audio Set name.");
-					System.out.println("no text");
-				} else if (audioSetName.getText() != "") {
-				//	System.out.println("yes text");
-					String setname = audioSetName.getText();
-					addAudioSet(setname);
-					controller.setAudioSetname(setname);
-					controller.addAudioSet(new LinkedList<>(audioset));
-					controller.addIconBtn(new LinkedList<>(iconData));
-					iconData.removeAll(iconData);
-					// use controller to generate new preview
-					// controller.generatePreview(audioset);
-					if (addSetListener != null) {
-						addSetListener.dynamicSetup();
-					}
-					audioset.clear();
-					checkBox.setSelected(false);
-					setButton.setEnabled(false);
-					setButton2.setEnabled(false);
-					add_set.setEnabled(false);
-					undo.setEnabled(false);
-					audioSetName.setText("");
-					audioSetName.setEditable(false);
-					controller.log("add_set [create into audio set] pressed");
+				String setname = audioSetName.getText();
+				addAudioSet(setname);
+				controller.setAudioSetname(setname);
+				controller.addAudioSet(new LinkedList<>(audioset));
+				controller.addIconBtn(new LinkedList<>(iconData));
+				iconData.removeAll(iconData);
+				// use controller to generate new preview
+				// controller.generatePreview(audioset);
+				if (addSetListener != null) {
+					addSetListener.dynamicSetup();
+				}
+				audioset.clear();
+				checkBox.setSelected(false);
+				setButton.setEnabled(false);
+				setButton2.setEnabled(false);
+				add_set.setEnabled(false);
+				undo.setEnabled(false);
+				audioSetName.setText("");
+				audioSetName.setEditable(false);
+				controller.log("add_set [create into audio set] pressed");
 
-					if (addListener != null) {
-						addListener.clearSetup(true);
-					}
+				if (addListener != null) {
+					addListener.clearSetup(true);
 				}
 			}
 
@@ -787,13 +785,14 @@ public class AudioSelectionPanel extends JPanel {
 		remove_img.setEnabled(false);
 		String s = System.getProperty("user.dir");
 		jfilechooser = new JFileChooser(s);
-		jfilechooser.addChoosableFileFilter(new ImportExtensionFilter());
+		FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+		jfilechooser.addChoosableFileFilter(imageFilter);
 		icon_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (jfilechooser.showOpenDialog(AudioSelectionPanel.this) == JFileChooser.APPROVE_OPTION) {
 					try {
-						String path = jfilechooser.getSelectedFile().getAbsolutePath();
-						ImageIcon playIcon5 = new ImageIcon(path);
+						String iconPath = jfilechooser.getSelectedFile().getAbsolutePath();
+						ImageIcon playIcon5 = new ImageIcon(iconPath);
 						playIcon5.setImage(Controller.scaleIcon(playIcon5, 8));
 						img = new JLabel(playIcon5);
 						img.setPreferredSize(Controller.getIconDimensions(playIcon5));
@@ -801,10 +800,10 @@ public class AudioSelectionPanel extends JPanel {
 						container.add(img);
 						remove_img.setEnabled(true);
 						icon_btn.setEnabled(false);
-						icon_label.setText("icon is applied! \"delete\" to reselect ");
+						icon_label.setText("Icon selected, Press the \"delete\" button to choose again ");
 						icon_label.setBounds(110, 150, 220, 30);
-						iconData.add(path);
-
+						iconData.add(iconPath);
+						controller.log("Icon file chosen from file browser.");
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -814,15 +813,29 @@ public class AudioSelectionPanel extends JPanel {
 			}
 		});
 		
+		addIconBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String selection2 = (String) audioData.getSelectedValue();
+				int idx = audioSelection.getSelectedIndex();
+				if (setListener != null && selection2 != null) {
+					audioset.add((String) audioData.getSelectedValue());
+					setListener.setup(idx, selection2);
+				}
+				Img_repaint();
+				controller.log("Icon added to button and button added to set.");
+				iconPopUp.dispose();
+			}
+		});
 
 		remove_img.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Img_repaint();
 				iconData.remove(iconData.size() - 1);
 				iconData.add("");
-				icon_label.setText("icon is delete! reselect the icon! ");
+				icon_label.setText("Icon has been removed. Please reselect an icon. ");
 				remove_img.setEnabled(false);
 				icon_btn.setEnabled(true);
+				controller.log("Icon removed from button and ready for re-selection.");
 			}
 		});
 	}

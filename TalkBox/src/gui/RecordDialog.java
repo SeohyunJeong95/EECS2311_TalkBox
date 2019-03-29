@@ -49,7 +49,7 @@ public class RecordDialog extends JDialog {
 		
 		audioFileName = new JTextField(10);
 		recordButton = new JToggleButton("Record");
-		recordButton.setEnabled(false);
+		//recordButton.setEnabled(false);
 		recorder = new Recorder();
 		status = new JLabel();
 		
