@@ -98,10 +98,9 @@ public class AudioSelectionPanel extends JPanel {
 		iconData = new ArrayList<>();
 		iconPopUp = new JFrame("Icon");
 		iconPopUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		iconPopUp.setBounds(250, 100, 400, 280);
+		iconPopUp.setBounds(250, 100, 400, 300);
 		container = iconPopUp.getContentPane();
-		container.setLayout(new GridLayout(6,1));
-		GridLayout cont1 = new GridLayout(2,1);
+		container.setLayout(new GridLayout(5,1));
 		
 		logo = new JLabel("Select an icon for this button");
 		logo.setHorizontalAlignment(JLabel.CENTER);
@@ -243,6 +242,7 @@ public class AudioSelectionPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				iconPopUp.setVisible(true);
 				icon_btn.setEnabled(true);
+				icon_label.setText("No icon selected");
 				remove_img.setEnabled(false);
 				controller.log("Select from Audio Files >> pressed.");
 			}
@@ -798,10 +798,10 @@ public class AudioSelectionPanel extends JPanel {
 						img = new JLabel(playIcon5);
 						img.setPreferredSize(Controller.getIconDimensions(playIcon5));
 						img.setBounds(130, 17, 125, 125);
-						container.add(img);
+						//container.add(img);
 						remove_img.setEnabled(true);
 						icon_btn.setEnabled(false);
-						icon_label.setText("Icon selected, Press the \"delete\" button to choose again ");
+						icon_label.setText("Icon applied");
 						icon_label.setBounds(110, 150, 220, 30);
 						iconData.add(iconPath);
 						controller.log("Icon file chosen from file browser.");
@@ -835,9 +835,10 @@ public class AudioSelectionPanel extends JPanel {
 				Img_repaint();
 				iconData.remove(iconData.size() - 1);
 				iconData.add("");
-				icon_label.setText("Icon has been removed. Please reselect an icon. ");
+				icon_label.setText("Icon has been removed. Please reselect an icon.");
 				remove_img.setEnabled(false);
 				icon_btn.setEnabled(true);
+				addIconBtn.setEnabled(false);
 				controller.log("Icon removed from button and ready for re-selection.");
 			}
 		});

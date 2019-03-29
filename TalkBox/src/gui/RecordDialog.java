@@ -49,7 +49,7 @@ public class RecordDialog extends JDialog {
 		
 		audioFileName = new JTextField(10);
 		recordButton = new JToggleButton("Record");
-		//recordButton.setEnabled(false);
+		recordButton.setEnabled(false);
 		recorder = new Recorder();
 		status = new JLabel();
 		
@@ -67,7 +67,7 @@ public class RecordDialog extends JDialog {
 			  }
 
 			  public void changed() {
-			     if (audioFileName.getText().equals("")){
+			     if (audioFileName.getText().equals("")) {
 			       recordButton.setEnabled(false);
 			     }
 			     else {
@@ -147,24 +147,18 @@ public class RecordDialog extends JDialog {
 		gc.gridy++;
 		add(status, gc);
 	}
-	
+
 	public boolean validateFilename(String newFile) {
-		if (newFile.isEmpty()) {
-			status.setText("Filename is empty!");
-			return false;
-		}
-		else {
-			boolean validated = true;
-			status.setText("");
-			File actual = new File("src\\audio");
-			for (File f : actual.listFiles()) {
-				if (f.getName().equals(newFile + ".wav")) {
-					validated = false;
-					status.setText("Filename already exists!");
-				}
+		boolean validated = true;
+		status.setText("");
+		File actual = new File("src\\audio");
+		for (File f : actual.listFiles()) {
+			if (f.getName().equals(newFile + ".wav")) {
+				validated = false;
+				status.setText("Filename already exists!");
 			}
-			return validated;
 		}
+		return validated;
 	}
 }
 
