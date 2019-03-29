@@ -105,6 +105,10 @@ public class Controller {
 	public void setAudioSetname(String setname) {
 		talkbox.setAudiosetNames(setname);
 	}
+	
+	public int getLastIndex() {
+		return talkbox.getLastIndex();
+	}
 //	
 	public String getAudioSetname(int idx) {
 		return talkbox.getAudiosetNames(idx);
@@ -168,4 +172,16 @@ public class Controller {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void addIconBtn(List<String> iconData) {
+		talkbox.addIconbtn(iconData);
+	}
+	
+	public List<List<String>> getAudioIconData(){
+		return talkbox.getAudioIconData();
+	}
+	public void removeIcon(int setidx,int elementidx) {
+		talkbox.removeIconbtn(setidx, elementidx);
+	}	
+	
 }

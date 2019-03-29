@@ -30,8 +30,7 @@ public class Stereo {
 	
 	
 	public void playMusic(String SoundFile) {
-		
-		
+	
 		clip.stop();
 		clip.close();
 		

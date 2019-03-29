@@ -10,10 +10,12 @@ public class TalkBox implements TalkBoxConfiguration {
 
 	// Database where the audio sets are stored. It's a LinkedList (database) containing the 
 	private List<List<String>> audioFileNames;
+	private List<List<String>> iconDataList;	
 	private List<String> audioSetName;
 	// Constructor
 	public TalkBox() {
 		audioFileNames = new LinkedList<>();
+		iconDataList = new LinkedList<>();
 		audioSetName = new ArrayList<>();
 		setDefaultAudioset();
 
@@ -23,27 +25,32 @@ public class TalkBox implements TalkBoxConfiguration {
 	 * Sets up the default audio-sets that are included in the TalkBox.
 	 */
 	public void setDefaultAudioset() {
-		  List<String> set1 = new LinkedList<>(); set1.add("hi.wav");
-		  set1.add("goodbye.wav"); set1.add("excuseme.wav"); set1.add("time.wav");
-		  set1.add("thankyou.wav"); audioFileNames.add(0, set1);
+		  List<String> set1 = new LinkedList<>();
+		  set1.add("hi.wav");
+		  set1.add("goodbye.wav");
+		  set1.add("excuseme.wav");
+		  set1.add("time.wav");
+		  set1.add("tired.wav");
+		  set1.add("Yes.wav");
+		  set1.add("Cool.wav");
+		  set1.add("BONJOUR.wav");
+		  set1.add("Alright.wav");
+		  set1.add("OK.wav");
+		  audioFileNames.add(0, set1);
 		  audioSetName.add("");
-		  //Set 2
-		  List<String> set2 = new LinkedList<>(); set2.add("Yes.wav");
-		  set2.add("No.wav"); set2.add("Maybe.wav"); set2.add("Sometimes.wav");
-		  set2.add("Ok.wav"); audioFileNames.add(1, set2);
-		  audioSetName.add("");
-		  
-		  //Set 3 
-		  List<String> set3 = new LinkedList<>(); set3.add("Happy.wav");
-		  set3.add("Sad.wav"); set3.add("Hungry.wav"); set3.add("Bored.wav");
-		  set3.add("Tired.wav"); audioFileNames.add(2, set3);
-		  audioSetName.add("");
-		  
-		  //Set 4 
-		  List<String> set4 = new LinkedList<>(); set4.add("Cool.wav");
-		  set4.add("Sucks.wav"); set4.add("Like.wav"); set4.add("Dont Like.wav");
-		  set4.add("Alright.wav"); audioFileNames.add(3, set4);
-		  audioSetName.add("");
+		  List<String> Dataset1 = new LinkedList<>();
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  Dataset1.add("");
+		  iconDataList.add(Dataset1);
+
 	
 	}
 
@@ -67,7 +74,10 @@ public class TalkBox implements TalkBoxConfiguration {
 		return audioSetName;
 
 	}
-
+	
+	public int getLastIndex() {
+		return audioFileNames.size() - 1;
+	}
 	
 
 	/**
@@ -163,4 +173,20 @@ public class TalkBox implements TalkBoxConfiguration {
 			list.remove(index);
 		}
 	}
+	
+	public void addIconbtn(List<String> iconData) {
+		this.iconDataList.add(iconData);
+	}
+
+	public void removeIconbtn(int setidx,int elementidx) {
+		if (elementidx >=0) {
+			this.iconDataList.get(setidx).remove(elementidx);
+		}
+	}
+	
+	public List<List<String>> getAudioIconData(){
+		return iconDataList;
+	}
+	
+
 }

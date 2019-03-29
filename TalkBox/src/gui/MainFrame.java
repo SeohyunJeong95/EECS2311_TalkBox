@@ -52,10 +52,7 @@ public class MainFrame extends JFrame {
 		reference = this;
 		getToolBarS().turnOffStart();
 
-	
-		
 		//Actions
-		
 		
 		audioSelectionPanel.setSelectionListener(new SelectionListener() {
 			public void setAudioSelection(int n) {
@@ -66,6 +63,11 @@ public class MainFrame extends JFrame {
 			}
 			
 		});
+		
+		audioSelectionPanel.setAddSetListener(() -> {
+			setupSim(controller.getLastIndex());
+			toolBarS.turnOnStart();
+		});
 				
 		audioSelectionPanel.setPlayListener(new PlayListener() {
 			
@@ -75,8 +77,7 @@ public class MainFrame extends JFrame {
 				audioPlayer.playMusic(fileName);
 			}
 		});
-		
-		 
+			 
 		audioSelectionPanel.setSetListener(new SetListener() {
 			public void setup(int idx, String fileName) {
 				if (audioSelectionPanel.isChecked() && fileName != null) {
@@ -108,6 +109,13 @@ public class MainFrame extends JFrame {
 				controller.removeAudio(idx, file);
 				refreshJList(idx);
 				setupSim(idx);
+			}
+			
+			@Override
+			public void iconRemoveInfo(int setidx, int elementidx) {
+				controller.removeIcon(setidx, elementidx);
+				refreshJList(setidx);
+				setupSim(setidx);
 			}
 			
 		});
@@ -168,7 +176,6 @@ public class MainFrame extends JFrame {
 		});
 		//Add
 		getContentPane().add(audioSelectionPanel, BorderLayout.WEST);
-		
 		getContentPane().add(toolBar, BorderLayout.NORTH);
 		getContentPane().add(setupPanel, BorderLayout.CENTER);
 		getContentPane().add(toolBarS, BorderLayout.SOUTH);	
@@ -223,8 +230,6 @@ public class MainFrame extends JFrame {
 				}
 			}
 		});
-
-				
 	
 		exitItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -9,10 +9,12 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -53,21 +55,21 @@ public class MainFrameSim extends JFrame {
 		audioPlayer = new Stereo();
 		
 		
-//		addWindowListener(new WindowAdapter() {
-//			public void windowClosing(WindowEvent e) {
-//				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
-//				if (action == JOptionPane.YES_OPTION) {
-//					MainFrameSim.this.mf.setVisible(true);
-//					MainFrameSim.this.mf.getToolBarS().turnOnStart();
-//					dispose();
-//					System.gc();
-//				}
-//				
-//			}
-//			
-//		});
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
+				if (action == JOptionPane.YES_OPTION) {
+					MainFrameSim.this.mf.setVisible(true);
+					MainFrameSim.this.mf.getToolBarS().turnOnStart();
+					dispose();
+					System.gc();
+				}
+
+			}
+
+		});
 	}
-	
+
 	
 	public void setIdx(int idx) {
 		this.idx = idx;
@@ -84,8 +86,7 @@ public class MainFrameSim extends JFrame {
 			this.remove(buttonPanel);
 			this.idx = idx;
 		}
-		 // naming the audio sets on simulator
-		if (idx < 4) { 
+		if (idx < 1) { 
 			label.setText("Audio Set " + (idx + 1));
 		} else {
 			label.setText(controller.getAudioSetname(idx));
@@ -94,6 +95,8 @@ public class MainFrameSim extends JFrame {
 		this.add(label, BorderLayout.NORTH);
 		String[][] audioFileSet = controller.getFileNames();
 		String[] audioSet = audioFileSet[idx];
+		List<List<String>> iconDataList = controller.getAudioIconData();
+		List<String> iconData= iconDataList.get(idx);
 		
 		JPanel panel = new JPanel();
 		this.buttonPanel = panel;
@@ -103,8 +106,19 @@ public class MainFrameSim extends JFrame {
 		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		
 		for(int i = 0; i < audioSet.length; i++) {
+			JButton add;
 			String file = audioSet[i].substring(0, audioSet[i].length() - 4);
-			JButton add = new JButton(file);
+			if(iconData.get(i).equals("")) {
+			add = new JButton(file);
+			}else {
+     		ImageIcon playIcon = new ImageIcon(iconData.get(i));
+			playIcon.setImage(Controller.scaleIcon(playIcon, 8));
+			add = new JButton(playIcon);
+			add.setText(file);
+			add.setVerticalTextPosition( SwingConstants.BOTTOM );
+			add.setVerticalAlignment( SwingConstants.TOP );
+			add.setHorizontalTextPosition( SwingConstants.CENTER );
+            }
 			add.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					JButton eventButton = (JButton) e.getSource();
@@ -124,7 +138,6 @@ public class MainFrameSim extends JFrame {
 	
 	
 	public void setSwapButtons() {
-		int numberOfAudioSets = controller.getNumberOfAudioSets();
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		Border innerBorder = BorderFactory.createTitledBorder("Swap Audio Set");
@@ -132,9 +145,9 @@ public class MainFrameSim extends JFrame {
 		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		this.add(panel, BorderLayout.SOUTH);
 		
-		String[] baseSets = {"Audio Set 1", "Audio Set 2", "Audio Set 3", "Audio Set 4"};
+		String[] baseSets = {"Audio Set 1"};
 		Object[] temp1 = controller.getAudiosetNameslist().toArray();
-		Object[] temp2 = Arrays.copyOfRange(temp1, 4, temp1.length);
+		Object[] temp2 = Arrays.copyOfRange(temp1, 1, temp1.length);
 		String[] nameListHalf = Arrays.copyOf(temp2, temp2.length, String[].class);
 		String[] nameList = Stream.of(baseSets, nameListHalf).flatMap(Stream::of).toArray(String[]::new);
 		JComboBox setList = new JComboBox(nameList);
@@ -213,7 +226,7 @@ public class MainFrameSim extends JFrame {
 	private void play(JButton button) {
 		String path = controller.getPath().toString();
 		String completePath = path + "\\" + button.getText(); //**
-		audioPlayer.playMusic(button.getText() + ".wav");
+		audioPlayer.playMusic(button.getText() + ".wav"); 
 		soundPlayed = true;
 	}
 	
