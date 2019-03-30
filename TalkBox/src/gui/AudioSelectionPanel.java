@@ -1,4 +1,4 @@
-package gui;
+ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -233,7 +233,7 @@ public class AudioSelectionPanel extends JPanel {
 					audioset.add((((String) audioList.getSelectedValue()) + ".wav").substring(3));
 					setListener.setup(idx, selection);
 				}
-				controller.log("Select from Audio Set >> pressed, (" + selection + ") added to the audioset");
+				controller.log("[Select from Audio Set >>] pressed, (" + selection + ") added to the audioset");
 			}
 
 		});
@@ -244,7 +244,7 @@ public class AudioSelectionPanel extends JPanel {
 				icon_btn.setEnabled(true);
 				icon_label.setText("No icon selected");
 				remove_img.setEnabled(false);
-				controller.log("Select from Audio Files >> pressed.");
+				controller.log("[Select from Audio List >>] pressed.");
 			}
 
 		});
@@ -794,7 +794,7 @@ public class AudioSelectionPanel extends JPanel {
 					try {
 						String iconPath = jfilechooser.getSelectedFile().getAbsolutePath();
 						ImageIcon playIcon5 = new ImageIcon(iconPath);
-						playIcon5.setImage(Controller.scaleIcon(playIcon5, 8));
+						playIcon5.setImage(Controller.scaleIcon(playIcon5, 2));
 						img = new JLabel(playIcon5);
 						img.setPreferredSize(Controller.getIconDimensions(playIcon5));
 						img.setBounds(130, 17, 125, 125);
@@ -804,7 +804,7 @@ public class AudioSelectionPanel extends JPanel {
 						icon_label.setText("Icon applied");
 						icon_label.setBounds(110, 150, 220, 30);
 						iconData.add(iconPath);
-						controller.log("Icon file chosen from file browser.");
+						controller.log("Icon file (" + iconPath + ") chosen from file browser.");
 						addIconBtn.setEnabled(true);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block

@@ -26,9 +26,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import controller.Controller;
 import utils.Stereo;
+import java.awt.Color;
 
 public class MainFrameSim extends JFrame {
 	
@@ -42,11 +44,24 @@ public class MainFrameSim extends JFrame {
 	private Controller controller;
 	private JLabel label = new JLabel();
 	private MainFrame mf;
+	
+	//The following fields are to change the look of the simulator
+	private Color innerBorderTitle_color = Color.WHITE;
+	private Color outerBorderTitle_color = Color.WHITE;
+	private Color button_fg_color = Color.WHITE;
+	private Color button_bg_color = Color.DARK_GRAY;
+	private Color bg_color_1 = Color.DARK_GRAY;
+	private Color bg_color_2 = Color.DARK_GRAY;
+	private Color text_color = Color.WHITE;
+	private Color menuBar_color = Color.GRAY;
+	//
 
 	public MainFrameSim(Controller controller, MainFrame mf) {
+				
 		super("TalkBox Simulator");
+		getContentPane().setBackground(bg_color_1);
 		setVisible(false);
-		setLayout(new BorderLayout());
+		getContentPane().setLayout(new BorderLayout());
 		setJMenuBar(createMenuBar());
 		this.controller = controller;
 		this.mf = mf;
@@ -61,6 +76,7 @@ public class MainFrameSim extends JFrame {
 				if (action == JOptionPane.YES_OPTION) {
 					MainFrameSim.this.mf.setVisible(true);
 					MainFrameSim.this.mf.getToolBarS().turnOnStart();
+					controller.log("Window closed");
 					dispose();
 					System.gc();
 				}
@@ -88,11 +104,12 @@ public class MainFrameSim extends JFrame {
 		}
 		if (idx < 1) { 
 			label.setText("Audio Set " + (idx + 1));
+			label.setForeground(text_color);
 		} else {
 			label.setText(controller.getAudioSetname(idx));
 		}
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		this.add(label, BorderLayout.NORTH);
+		getContentPane().add(label, BorderLayout.NORTH);
 		String[][] audioFileSet = controller.getFileNames();
 		String[] audioSet = audioFileSet[idx];
 		List<List<String>> iconDataList = controller.getAudioIconData();
@@ -102,19 +119,26 @@ public class MainFrameSim extends JFrame {
 		this.buttonPanel = panel;
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		Border innerBorder = BorderFactory.createTitledBorder("Play Audio");
+		((TitledBorder) innerBorder).setTitleColor(Color.WHITE);
 		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+		//((TitledBorder) outerBorder).setTitleColor(outerBorderTitle_color);
 		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+		panel.setBackground(bg_color_2);
 		
 		for(int i = 0; i < audioSet.length; i++) {
 			JButton add;
 			String file = audioSet[i].substring(0, audioSet[i].length() - 4);
 			if(iconData.get(i).equals("")) {
 			add = new JButton(file);
+			add.setForeground(button_fg_color);
+			add.setBackground(button_bg_color);
 			} else {
      		ImageIcon playIcon = new ImageIcon(iconData.get(i));
 			playIcon.setImage(Controller.scaleIcon(playIcon, 8));
 			add = new JButton(playIcon);
 			add.setText(file);
+			add.setBackground(button_bg_color);
+			add.setForeground(button_fg_color);
 			add.setVerticalTextPosition( SwingConstants.BOTTOM );
 			add.setVerticalAlignment( SwingConstants.TOP );
 			add.setHorizontalTextPosition( SwingConstants.CENTER );
@@ -132,7 +156,7 @@ public class MainFrameSim extends JFrame {
 		}
 	
 		
-		this.add(panel, BorderLayout.CENTER);
+		getContentPane().add(panel, BorderLayout.CENTER);
 	}
 	
 	
@@ -140,10 +164,14 @@ public class MainFrameSim extends JFrame {
 	public void setSwapButtons() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		panel.setBackground(bg_color_1);
+		
 		Border innerBorder = BorderFactory.createTitledBorder("Swap Audio Set");
+		((TitledBorder) innerBorder).setTitleColor(Color.WHITE);
 		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+		
 		panel.setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
-		this.add(panel, BorderLayout.SOUTH);
+		getContentPane().add(panel, BorderLayout.SOUTH);
 		
 		String[] baseSets = {"Audio Set 1"};
 		Object[] temp1 = controller.getAudiosetNameslist().toArray();
@@ -227,16 +255,23 @@ public class MainFrameSim extends JFrame {
 		String path = controller.getPath().toString();
 		String completePath = path + "\\" + button.getText(); //**
 		audioPlayer.playMusic(button.getText() + ".wav"); 
+		controller.log("(" + button.getText() + ".wav)" + " played");
 		soundPlayed = true;
 	}
 	
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		
 		JMenu fileMenu = new JMenu("Menu");
 		JMenuItem exitItem = new JMenuItem("Exit");
+		
+		//colors for menu bar
+		menuBar.setBackground(menuBar_color);
+		fileMenu.setForeground(text_color);
+	
+		
 		fileMenu.add(exitItem);
 		menuBar.add(fileMenu);
+		
 		exitItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int action = JOptionPane.showConfirmDialog(MainFrameSim.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);

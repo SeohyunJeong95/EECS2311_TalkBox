@@ -134,9 +134,10 @@ public class MainFrame extends JFrame {
 			public void shouldStart(boolean b) {
 				if (b) {
 					mfs.showIt();
+					controller.log("SIMULATOR STARTED");
 					MainFrame.this.setVisible(false);
 					getToolBarS().turnOffStartButton();
-					
+				
 				}
 			}
 		});
