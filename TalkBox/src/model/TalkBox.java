@@ -35,7 +35,7 @@ public class TalkBox implements TalkBoxConfiguration {
 		  set1.add("Cool.wav");
 		  set1.add("BONJOUR.wav");
 		  set1.add("Alright.wav");
-		  set1.add("OK.wav");
+		  set1.add("No.wav");
 		  audioFileNames.add(0, set1);
 		  audioSetName.add("");
 		  List<String> Dataset1 = new LinkedList<>();
