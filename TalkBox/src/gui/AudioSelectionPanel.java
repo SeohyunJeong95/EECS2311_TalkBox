@@ -100,7 +100,7 @@ public class AudioSelectionPanel extends JPanel {
 		iconPopUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		iconPopUp.setBounds(250, 100, 400, 300);
 		container = iconPopUp.getContentPane();
-		container.setLayout(new GridLayout(5,1));
+		container.setLayout(new GridLayout(6,1));
 		
 		logo = new JLabel("Select an icon for this button");
 		logo.setHorizontalAlignment(JLabel.CENTER);
@@ -116,10 +116,10 @@ public class AudioSelectionPanel extends JPanel {
 		icon_label.setHorizontalAlignment(JLabel.CENTER);
 		icon_label.setBounds(140, 150, 220, 30);
 		container.add(icon_label);
-		img = new JLabel("");
 		addIconBtn = new JButton("Add Selected Icon");
 		container.add(addIconBtn);
 		addIconBtn.setEnabled(false);
+		
 		
 		initPopUpWindow();
 
@@ -794,11 +794,11 @@ public class AudioSelectionPanel extends JPanel {
 					try {
 						String iconPath = jfilechooser.getSelectedFile().getAbsolutePath();
 						ImageIcon playIcon5 = new ImageIcon(iconPath);
-						playIcon5.setImage(Controller.scaleIcon(playIcon5, 2));
+						playIcon5.setImage(Controller.scaleIcon(playIcon5, 8));
 						img = new JLabel(playIcon5);
 						img.setPreferredSize(Controller.getIconDimensions(playIcon5));
-						img.setBounds(130, 17, 125, 125);
-						//container.add(img);
+						//img.setBounds(130,30, 125, 125);
+						container.add(img);
 						remove_img.setEnabled(true);
 						icon_btn.setEnabled(false);
 						icon_label.setText("Icon applied");
