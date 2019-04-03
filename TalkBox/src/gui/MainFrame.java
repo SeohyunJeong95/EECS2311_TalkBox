@@ -289,6 +289,9 @@ public class MainFrame extends JFrame {
 	public MainFrameSim getMainFrameSim() {
 		return mfs;
 	}
+	public AudioSelectionPanel getAUdioSelectionpanel() {
+		return audioSelectionPanel;
+	}
 	
 	public int getlength() {
 		return setupPanel.getLength();
