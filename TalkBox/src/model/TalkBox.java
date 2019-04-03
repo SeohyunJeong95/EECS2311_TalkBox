@@ -33,7 +33,7 @@ public class TalkBox implements TalkBoxConfiguration {
 		  set1.add("tired.wav");
 		  set1.add("Yes.wav");
 		  set1.add("Cool.wav");
-		  set1.add("BONJOUR.wav");
+		  set1.add("Hungry.wav");
 		  set1.add("Alright.wav");
 		  set1.add("No.wav");
 		  audioFileNames.add(0, set1);

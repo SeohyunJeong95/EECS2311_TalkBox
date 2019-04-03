@@ -31,5 +31,5 @@ Please see releases and download the talkbox zip folder for the TalkBox applicat
 
 >**More information :** Check out the [User Manual][1]
 
-[1]: https://github.com/persaud29/EECS2311_TalkBox/blob/master/Documentation/Group3_TalkBox_UserManual_Documentation.pdf
+[1]: https://github.com/persaud29/EECS2311_TalkBox/blob/master/Documentation/Final/Group3%20User%20Manual%20Final.pdf
 
