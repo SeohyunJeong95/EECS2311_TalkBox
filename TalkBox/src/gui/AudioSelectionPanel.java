@@ -56,10 +56,10 @@ public class AudioSelectionPanel extends JPanel {
 
 	private JScrollPane scr_audio;
 	private JScrollPane audioList2;
-	private JList<String> audioData;
+	public JList<String> audioData;
 	private ArrayList<String> iconData;
 	private JButton playButton;
-	private JButton setButton2;
+	public JButton setButton2;
 	private JButton removeset;
 	private JButton remove_img;
 	private JButton add_set;
@@ -67,7 +67,7 @@ public class AudioSelectionPanel extends JPanel {
 	private PlayListener playListener;
 	private SetListener setListener;
 	private AddSetListener addSetListener;
-	private JCheckBox checkBox;
+	public JCheckBox checkBox;
 	private boolean isChecked;
 	protected Controller controller;
 	private int numofaudioset;
@@ -79,7 +79,7 @@ public class AudioSelectionPanel extends JPanel {
 	private ClearListener clearListener;
 	private AddListener addListener;
 	private JLabel audioSetNameLabel;
-	private JTextField audioSetName;
+	public JTextField audioSetName;
 	private JLabel searchLabel;
 	private JTextField searchAudio;
 	private DefaultListModel<String> DefaultListModel = new DefaultListModel();
