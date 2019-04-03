@@ -1,4 +1,4 @@
-TalkBox Version 1.0
+TalkBox Version 2.0
 ---------------
 
 Note: If running the Project in Eclipse, App.Java in package 'gui'
@@ -12,7 +12,7 @@ is the loader.
 **TalkBox**
 
 TalkBox is desiged for those with speech difficulties.
-This software can help both caregiver and the speech impaired.
+This software can help both the caregiver and the speech impaired.
 Audio is played via push buttons corresponding to the desired audio on a graphical user interface.
 
 **TalkBox configuration**
@@ -22,11 +22,12 @@ Configurations may be saved and imported.
 
 **TalkBox simulator**
 
-User interface for Talkbox upon clicking the start option on the configurator. 
+The simulator represents what the physical TalkBox device would look like with audio buttons and respective icons for each button.
+The user can switch between the audio sets that they have created and the default one that comes pre-loaded with the configurator.
 
-** vM Release 1.0 **
+** Final Project Release **
 
-Please see the vM folder for the TalkBox application. Enjoy!
+Please see releases and download the talkbox zip folder for the TalkBox application. Enjoy!
 
 >**More information :** Check out the [User Manual][1]
 
