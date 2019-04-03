@@ -29,6 +29,7 @@ public class RecordDialog extends JDialog {
 	private SetListener setListener;
 	private Controller controller;
 	private JLabel status;
+	private File f;
 	
 	public int getAudioIndex() {
 		return audioIndex;
@@ -55,6 +56,7 @@ public class RecordDialog extends JDialog {
 		
 		controller = arg_controller;
 		
+		f = new File("audio/");
 		audioFileName.getDocument().addDocumentListener(new DocumentListener() {
 			  public void changedUpdate(DocumentEvent e) {
 			    changed();
@@ -91,7 +93,7 @@ public class RecordDialog extends JDialog {
 					if (button.isSelected()) {
 						audioFileName.setEditable(false);
 						String path = System.getProperty("user.dir");
-						String completeFileSource = path + "\\bin\\audio\\" + RecordDialog.this.fileName + ".wav";
+						String completeFileSource = path + "//audio//" + RecordDialog.this.fileName + ".wav";
 				
 						recorder.startRecording(completeFileSource);
 						button.setText("Stop");
@@ -100,9 +102,9 @@ public class RecordDialog extends JDialog {
 					} else {
 						recorder.stopRecording();
 						button.setText("Record");
-						if (RecordDialog.this.setListener != null) {
-							RecordDialog.this.setListener.setup(RecordDialog.this.audioIndex, RecordDialog.this.fileName + ".wav");
-						}
+//						if (RecordDialog.this.setListener != null) {
+//							RecordDialog.this.setListener.setup(RecordDialog.this.audioIndex, RecordDialog.this.fileName + ".wav");
+//						}
 						controller.log("recordButton [Record] pressed. Recording saved @ (" + RecordDialog.this.fileName + ".wav" + ")");
 						audioFileName.setText("");
 						audioFileName.setEditable(true);
@@ -151,8 +153,7 @@ public class RecordDialog extends JDialog {
 	public boolean validateFilename(String newFile) {
 		boolean validated = true;
 		status.setText("");
-		File actual = new File("src\\audio");
-		for (File f : actual.listFiles()) {
+		for (File a : f.listFiles()) {
 			if (f.getName().equals(newFile + ".wav")) {
 				validated = false;
 				status.setText("Filename already exists!");

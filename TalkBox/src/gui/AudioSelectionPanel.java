@@ -151,7 +151,7 @@ public class AudioSelectionPanel extends JPanel {
 		audioSetName.setEditable(false);
 
 		// pause-play
-		ImageIcon playIcon = new ImageIcon("src//icons//play-pause.png");
+		ImageIcon playIcon = new ImageIcon("icons/play-pause.png");
 		playIcon.setImage(Controller.scaleIcon(playIcon, 8));
 		playButton = new JButton(playIcon);
 		playButton.setPreferredSize(Controller.getIconDimensions(playIcon));
@@ -164,7 +164,7 @@ public class AudioSelectionPanel extends JPanel {
 		add_set = new JButton("Create into Audio Set");
 
 		// remove
-		ImageIcon removeIcon = new ImageIcon("src//icons//remove.png");
+		ImageIcon removeIcon = new ImageIcon("icons/remove.png");
 		removeIcon.setImage(Controller.scaleIcon(removeIcon, 8));
 		removeset = new JButton(removeIcon);
 		removeset.setPreferredSize(Controller.getIconDimensions(removeIcon));
@@ -785,7 +785,7 @@ public class AudioSelectionPanel extends JPanel {
 
 	// get Audiolist from "audio" folder
 	private List<String> getAudioList() {
-		File f = new File("bin//audio");
+		File f = new File("audio/");
 		List<String> filesname = new ArrayList<String>(Arrays.asList(f.list()));
 		List<String> listWav = new ArrayList<>();
 		for (int i = 0; i < filesname.size(); i++) {

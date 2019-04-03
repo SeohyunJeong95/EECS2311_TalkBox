@@ -34,11 +34,11 @@ public class Stereo {
 		clip.stop();
 		clip.close();
 		
-		soundfilein = new File(SoundFile);
-		URL url = getClass().getResource("/audio/" + SoundFile);
+		soundfilein = new File("audio//"+SoundFile);
+		
 		
 		try {
-			audioIn = AudioSystem.getAudioInputStream(url);
+			audioIn = AudioSystem.getAudioInputStream(soundfilein.toURI().toURL());
 			clip.open(audioIn);
 			clip.start();
 		} catch (UnsupportedAudioFileException ee) {
