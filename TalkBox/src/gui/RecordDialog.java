@@ -16,7 +16,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import controller.Controller;
-import playground.Helpers;
 import utils.Recorder;
 
 public class RecordDialog extends JDialog {
