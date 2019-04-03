@@ -187,6 +187,10 @@ public class TalkBox implements TalkBoxConfiguration {
 	public List<List<String>> getAudioIconData(){
 		return iconDataList;
 	}
+	public LinkedList<String> getAudioIconDatabyidx(int set){
+		return (LinkedList<String>) iconDataList.get(set);
+	}
+
 	
 
 }

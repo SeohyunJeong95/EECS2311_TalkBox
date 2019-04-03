@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import gui.MainFrame;
@@ -183,5 +184,9 @@ public class Controller {
 	public void removeIcon(int setidx,int elementidx) {
 		talkbox.removeIconbtn(setidx, elementidx);
 	}	
+	public LinkedList<String> getAudioIconDatabyidx(int set){
+		
+		return talkbox.getAudioIconDatabyidx(set);
+	}
 	
 }

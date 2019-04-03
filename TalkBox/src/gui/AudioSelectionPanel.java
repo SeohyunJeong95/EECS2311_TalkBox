@@ -231,9 +231,13 @@ public class AudioSelectionPanel extends JPanel {
 
 		});
 		setButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { 
 				String selection = (((String) audioList.getSelectedValue()) + ".wav").substring(3);
 				int idx = audioSelection.getSelectedIndex();
+				//System.out.println(idx-1);
+				LinkedList<String> iconlist = controller.getAudioIconDatabyidx(idx-1);
+				int idx2 = audioList.getSelectedIndex();
+				iconData.add(iconlist.get(idx2));
 				if (setListener != null && selection != null) {
 					audioset.add((((String) audioList.getSelectedValue()) + ".wav").substring(3));
 					setListener.setup(idx, selection);
