@@ -13,7 +13,7 @@ import controller.Controller;
 public class ToolBar extends JPanel implements ActionListener {
 	
 	protected Controller controller;
-	JButton recordButton;
+	public JButton recordButton;
 	InitiateSim sim;
 	
 	public ToolBar() {

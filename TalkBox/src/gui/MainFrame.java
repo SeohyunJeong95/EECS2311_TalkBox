@@ -279,6 +279,9 @@ public class MainFrame extends JFrame {
 	public ToolBarS getToolBarS() {
 		return toolBarS;
 	}
+	public ToolBar getToolBar() {
+		return toolBar;
+	}
 
 	public void setToolBarS(ToolBarS toolBarS) {
 		this.toolBarS = toolBarS;
@@ -289,6 +292,10 @@ public class MainFrame extends JFrame {
 	}
 	public AudioSelectionPanel getAUdioSelectionpanel() {
 		return audioSelectionPanel;
+	}
+	
+	public RecordDialog getRecordDialog() {
+		return recordDialog;
 	}
 	
 	public int getlength() {

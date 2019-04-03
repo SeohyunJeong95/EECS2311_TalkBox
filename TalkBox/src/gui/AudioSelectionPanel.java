@@ -81,7 +81,7 @@ public class AudioSelectionPanel extends JPanel {
 	private JLabel audioSetNameLabel;
 	public JTextField audioSetName;
 	private JLabel searchLabel;
-	private JTextField searchAudio;
+	public JTextField searchAudio;
 	private DefaultListModel<String> DefaultListModel = new DefaultListModel();
 	private JFrame iconPopUp;
 	private Container container;

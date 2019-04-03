@@ -20,7 +20,7 @@ import utils.Recorder;
 
 public class RecordDialog extends JDialog {
 	
-	private JTextField audioFileName;
+	public JTextField audioFileName;
 	private JToggleButton recordButton;
 	private int audioIndex;
 	private String fileName;
