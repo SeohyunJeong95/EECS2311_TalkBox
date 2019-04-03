@@ -29,9 +29,15 @@ private int count = 0;
 	
 	public boolean isEmpty() {
 		return count == 0;
+		
 	}
 	
 	public void removeText() {
 		textArea.setText("");
+		count = 0;
+	}
+	
+	public int getLength() {
+		return count;
 	}
 }
