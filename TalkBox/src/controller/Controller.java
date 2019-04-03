@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import Logger.ActionLogger;
+import Logger.TBCLog;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,12 +29,14 @@ public class Controller {
 	private TalkBox talkbox;
 	private MainFrame view;
 	private ActionLogger log;
+	public TBCLog tbc;
 	
 	//talkbox save to object  set audiofile and talbox create . 
 	
 	public Controller() {
 		this.talkbox = new TalkBox();//initialize with talkbox setter method
 		log = new ActionLogger("Action_Log//log.txt", true);
+		tbc = new TBCLog();
 	}
 	
 	/**
@@ -160,6 +163,7 @@ public class Controller {
 	public void log(String text) {
 		try {
 			log.writeToFile(text);
+			tbc.read();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

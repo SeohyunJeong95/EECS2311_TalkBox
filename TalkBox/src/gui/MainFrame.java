@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import Logger.TBCLog;
 import controller.Controller;
 import utils.Stereo;
 
@@ -26,6 +28,7 @@ public class MainFrame extends JFrame {
 	private Stereo audioPlayer;
 	private MainFrameSim mfs;
 	
+	private TBCLog tbc;
 	private JFileChooser jfilechooser;
 	private RecordDialog recordDialog;
 	private JFrame reference;
@@ -42,6 +45,7 @@ public class MainFrame extends JFrame {
 		toolBar = new ToolBar();
 		setupPanel = new SetupPanel();
 		controller = audioSelectionPanel.controller;
+		tbc = controller.tbc;
 		audioPlayer = new Stereo();
 		setToolBarS(new ToolBarS());
 		mfs = new MainFrameSim(controller, this);
@@ -199,11 +203,15 @@ public class MainFrame extends JFrame {
 		JMenuItem exportDataItem = new JMenuItem("Export Data");
 		JMenuItem importDataItem = new JMenuItem("Import Data");
 		JMenuItem exitItem = new JMenuItem("Exit");
+		JMenuItem tbclogger = new JMenuItem("TBC Log");
 		
 		fileMenu.add(exportDataItem);
 		fileMenu.add(importDataItem);
 		fileMenu.addSeparator();
+		fileMenu.add(tbclogger);
+		fileMenu.addSeparator();
 		fileMenu.add(exitItem);
+		
 		
 		menuBar.add(fileMenu);
 		importDataItem.addActionListener(new ActionListener(){
@@ -232,6 +240,17 @@ public class MainFrame extends JFrame {
 			}
 		});
 	
+		tbclogger.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					tbc.showIt();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}		
+				}		
+			}
+		);
 		exitItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
