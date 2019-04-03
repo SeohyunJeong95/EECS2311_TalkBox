@@ -41,49 +41,23 @@ import javax.swing.SwingUtilities;
 
 public class TBCLog extends JFrame {
 
-               
-
-                File file;
-
+	            File file;
                 JTextArea text;
-
                 BufferedReader in;
-
-               
 
                 public TBCLog() {
 
-                               
-
-                                super("TBCLog");
-
-                               
+                		super("TBCLog");
 
                                 this.file = new File("Action_Log\\log.txt");
-
                                 this.text = new JTextArea();
-
                                 try {
-
                                                 this.in = new BufferedReader(new FileReader(file));
-
-                                } catch (FileNotFoundException e) {
-
-                                                // TODO Auto-generated catch block
-
+                                } catch (FileNotFoundException e) {           
                                                 e.printStackTrace();
-
                                 }             
-
-                               
-
-                                setVisible(false);
-
-                                               
-
+                            setVisible(false);
                 }
-
-               
 
                 public void read() throws IOException {
                                 String line = in.readLine();
@@ -92,26 +66,17 @@ public class TBCLog extends JFrame {
                                                 line = in.readLine();
                                 }
                 }
-
-               
-
                 public void update() throws IOException{
-
-                                this.read();
-
+                this.read();
                 }
-
-               
 
                 public void showIt() throws IOException {
                                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                                 getContentPane().add(text);
-                                setSize(100, 100);
+                                setSize(500, 500);
                                 setVisible(true); 
-
                 }
 
-                
                 public static void main(String[] args) throws IOException {
                 	
                 	TBCLog logger = new TBCLog();	
