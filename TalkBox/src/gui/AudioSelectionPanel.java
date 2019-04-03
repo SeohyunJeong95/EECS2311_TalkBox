@@ -92,9 +92,6 @@ public class AudioSelectionPanel extends JPanel {
 	private JLabel icon_label;
 	private JFileChooser jfilechooser;
 	private JButton addIconBtn;
-	private String iconPath;
-	private int button2count;
-	private int button1count;
 	private SetupPanel setupPanel;
 	private MainFrame mf;
 	
@@ -113,9 +110,6 @@ public class AudioSelectionPanel extends JPanel {
 		iconPopUp.setBounds(250, 100, 400, 300);
 		container = iconPopUp.getContentPane();
 		container.setLayout(new GridLayout(6,1));
-		
-		button1count = 1;
-		button2count = 1;
 		logo = new JLabel("Select an icon for this button");
 		logo.setHorizontalAlignment(JLabel.CENTER);
 		logo.setBounds(20, 5, 250, 30);
@@ -268,7 +262,6 @@ public class AudioSelectionPanel extends JPanel {
 		
 		setButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				button2count++;
 				iconPopUp.setVisible(true);
 				icon_btn.setEnabled(true);
 				icon_label.setText("No icon selected");
@@ -341,8 +334,6 @@ public class AudioSelectionPanel extends JPanel {
 				controller.addAudioSet(new LinkedList<>(audioset));
 				controller.addIconBtn(new LinkedList<>(iconData));
 				iconData.removeAll(iconData);
-				button2count = 1;
-				button1count = 1;
 				// use controller to generate new preview
 				// controller.generatePreview(audioset);
 				if (addSetListener != null) {
