@@ -167,7 +167,7 @@ public class Controller {
 	
 	public void terminateLogger() {
 		try {
-		log.writeToFile("end of log");
+		log.writeToFile("End of log");
 		log.setAppend(false);
 		} catch (IOException e1) {
 			e1.printStackTrace();

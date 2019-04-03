@@ -36,7 +36,7 @@ public class MainFrame extends JFrame {
 		setJMenuBar(createMenuBar());
 		
 		//Initialize
-		audioSelectionPanel = new AudioSelectionPanel();
+		audioSelectionPanel = new AudioSelectionPanel(this);
 		audioSelectionPanel.def_audioset();
 		
 		toolBar = new ToolBar();
@@ -271,6 +271,9 @@ public class MainFrame extends JFrame {
 		return mfs;
 	}
 	
+	public int getlength() {
+		return setupPanel.getLength();
+	}
 }
 
 
