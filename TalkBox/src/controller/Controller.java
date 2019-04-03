@@ -33,7 +33,7 @@ public class Controller {
 	
 	public Controller() {
 		this.talkbox = new TalkBox();//initialize with talkbox setter method
-		log = new ActionLogger("src\\Logger\\log.txt", true);
+		log = new ActionLogger("Action_Log//log.txt", true);
 	}
 	
 	/**
