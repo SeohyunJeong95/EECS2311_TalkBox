@@ -31,8 +31,6 @@ public class MainFrame extends JFrame {
 	private TBCLog tbc;
 	private JFileChooser jfilechooser;
 	private RecordDialog recordDialog;
-	private JFrame reference;
-	
 	public MainFrame() {
 		super("TalkBox Configurator");
 		getContentPane().setLayout(new BorderLayout());
@@ -53,7 +51,6 @@ public class MainFrame extends JFrame {
 		jfilechooser = new JFileChooser(s);
 		jfilechooser.setFileFilter(new ImportExtensionFilter());
 		recordDialog = new RecordDialog(this, controller);
-		reference = this;
 		getToolBarS().turnOffStart();
 
 		//Actions
@@ -77,7 +74,6 @@ public class MainFrame extends JFrame {
 			
 			public void setFileName(int idx, String fileName) {
 				String path = controller.getPath().toString();
-				String completePath = path +  "\\" + fileName; //**
 				audioPlayer.playMusic(fileName);
 			}
 		});
@@ -232,6 +228,7 @@ public class MainFrame extends JFrame {
 				if(jfilechooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
 					try {
 						controller.save(jfilechooser.getSelectedFile());
+						controller.log("Saved configuration as: " + jfilechooser.getSelectedFile().toString());
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -244,6 +241,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					tbc.showIt();
+					controller.log("TBC App opened");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -255,7 +253,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int action = JOptionPane.showConfirmDialog(MainFrame.this, "Are you sure?", "Exit", JOptionPane.YES_OPTION);
 				if (action == JOptionPane.YES_OPTION) {
-					
+					controller.log("Configurator exited");
 					dispose();
 					System.gc();
 				}

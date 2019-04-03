@@ -8,7 +8,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.Controller;
+
 public class ToolBar extends JPanel implements ActionListener {
+	
+	protected Controller controller;
 	JButton recordButton;
 	InitiateSim sim;
 	
@@ -30,6 +34,7 @@ public class ToolBar extends JPanel implements ActionListener {
 		if (clicked == recordButton) {
 			if (this.sim != null) {
 				sim.shouldStart(true);
+				controller.log("Simulator Started");
 			}
 			
 		}

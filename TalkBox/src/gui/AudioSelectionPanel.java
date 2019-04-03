@@ -192,6 +192,7 @@ public class AudioSelectionPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (selectionListener != null) {
 					int selection = audioSelection.getSelectedIndex();
+					controller.log("audio at index " + selection + "selected");
 					if (selection > 0) {
 						selectionListener.setAudioSelection(selection - 1);
 					}

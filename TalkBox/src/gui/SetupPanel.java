@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -9,6 +8,7 @@ import javax.swing.JTextArea;
 public class SetupPanel extends JPanel {
 private JTextArea textArea;
 private int count = 0;
+
 	
 	public SetupPanel() {
 		textArea = new JTextArea();
