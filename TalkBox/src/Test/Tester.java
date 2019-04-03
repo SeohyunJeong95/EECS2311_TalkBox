@@ -43,6 +43,12 @@ public class Tester {
 		  testSet.add("No.wav");
 		return testSet;
 	}
+	public LinkedList<String> setupIconTestSet() {
+		LinkedList<String> iconlist = new LinkedList<>();
+		iconlist.add("happy.png");
+		iconlist.add("sad.png");
+		return iconlist;
+	}
 	@Test
 	public void test_model_getAudioList() {
 		setup();
