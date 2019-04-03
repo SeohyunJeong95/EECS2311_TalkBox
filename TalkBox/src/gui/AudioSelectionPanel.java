@@ -205,12 +205,10 @@ public class AudioSelectionPanel extends JPanel {
 			}
 		});
 		
-		// detecting swaps in audio list for button naming
-		
+		// detecting swaps in audio list for button naming conventions
 		audioData.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				setButton2.setText("Add " + (String) audioData.getSelectedValue() + " as button " + (mf.getlength()+1));
-
 			}
 		});
 		
