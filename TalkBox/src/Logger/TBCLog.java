@@ -71,7 +71,7 @@ public class TBCLog extends JFrame {
                 }
 
                 public void showIt() throws IOException {
-                                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                                setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                                 getContentPane().add(text);
                                 setSize(500, 500);
                                 setVisible(true); 
